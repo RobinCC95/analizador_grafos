@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GrafoRoutingModule } from './grafo/grafo-routing.module';
+import { GrafoModule } from './grafo/grafo.module';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { NotFoundComponent } from './template/not-found/not-found.component';
 const routes: Routes = [
@@ -19,7 +21,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+    GrafoModule,
+    GrafoRoutingModule
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

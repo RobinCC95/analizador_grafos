@@ -20,6 +20,7 @@ import { NotFoundComponent } from './template/not-found/not-found.component';
     BrowserModule,
     AppRoutingModule
   ],
+  exports:[],
   providers: [],
   bootstrap: [AppComponent]
 })
