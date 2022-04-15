@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation  } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-root',

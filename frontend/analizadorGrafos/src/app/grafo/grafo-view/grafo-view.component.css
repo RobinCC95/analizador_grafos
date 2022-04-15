@@ -1,0 +1,13 @@
+.myDiagramDiv{
+  width: 70%;
+  height: 500px;
+  border: 1px solid black;
+  background-color: beige;
+}
+
+.myPaletteDiv{
+  width: 30%;
+  height: 50px;
+  border: 1px solid black;
+  background-color: beige;
+}

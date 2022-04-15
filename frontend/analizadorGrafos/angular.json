@@ -31,8 +31,7 @@
               "node_modules/materialize-css/dist/css/materialize.css"
             ],
             "scripts": [
-              "node_modules/materialize-css/dist/js/materialize.js",
-              "node_modules/gojs/release/go-debug.js"
+              "node_modules/materialize-css/dist/js/materialize.js"
             ]
           },
           "configurations": {
