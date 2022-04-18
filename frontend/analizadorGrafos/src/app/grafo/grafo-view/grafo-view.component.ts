@@ -59,6 +59,7 @@ export class GrafoViewComponent implements OnInit {
         alert('no se inicializaron los nodos');
 
     }
+    return this.listNodos;
   }
 
   public diagramDivClassName: string = 'myDiagramDiv';
