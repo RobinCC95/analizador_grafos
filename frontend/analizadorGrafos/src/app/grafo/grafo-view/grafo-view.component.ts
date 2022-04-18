@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import * as go from 'gojs';
 import { DataSyncService, DiagramComponent, PaletteComponent } from 'gojs-angular';
@@ -10,43 +10,60 @@ import produce from "immer";
   styleUrls: ['./grafo-view.component.css'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
+
 export class GrafoViewComponent implements OnInit {
+
+  listNodos = [{}];
+  listEdges= [{}];
+
+
+  constructor() {
+   }
+
+  ngOnInit(): void {
+  }
+
   public state = {
     // Diagram state props
-    diagramNodeData: [
-      { id: 'Alpha', text: "Alpha", color: 'lightblue' },
-        { id: 'Beta', text: "Beta", color: 'orange' },
-        { id: 'Omega', text: "Omega", color: 'red' }
-      ],
-      diagramLinkData: [
-        { key: -1, from: 'Alpha', to: 'Beta' },
-        { key: 2, from: 'Alpha', to: 'Omega' }
-
-      ],
+    diagramNodeData: this.listNodos,
+      diagramLinkData: this.listEdges,
       diagramModelData: { prop: 'value' },
       skipsDiagramUpdate: false,
       selectedNodeData: null, // used by InspectorComponent
 
       // Palette state props
       paletteNodeData: [
-        { key: 'Epsilon', text: 'Epsilon', color: 'red' },
-        { key: 'Kappa', text: 'Kappa', color: 'purple' }
+        { key: 'nodoRed', text: 'nodoRed', color: 'red' },
+        { key: 'nodoBlue', text: 'nodoBlue', color: 'Blue' }
       ],
       paletteModelData: { prop: 'val' }
     };
 
+  public initVariables() {
+    if (this.listNodos.length == 1) {
+      this.listNodos = [
+        { id: 'Alpha', text: "Alpha", color: 'lightblue' },
+          { id: 'Beta', text: "Beta", color: 'orange' },
+          { id: 'Omega', text: "Omega", color: 'red' }
+        ];
+      console.log(this.listNodos);
+
+      this.listEdges=[
+        { key: -1, from: 'Alpha', to: 'Beta' },
+        { key: 2, from: 'Alpha', to: 'Omega' }
+
+      ];
+
+      }
+      else {
+        alert('no se inicializaron los nodos');
+
+    }
+  }
+
   public diagramDivClassName: string = 'myDiagramDiv';
   public paletteDivClassName = 'myPaletteDiv';
 
-
-
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-
-  }
   // initialize diagram / templates
 public initDiagram(): go.Diagram {
   const $ = go.GraphObject.make;
@@ -116,6 +133,7 @@ public initDiagram(): go.Diagram {
  */
 public diagramModelChange = function(changes: go.IncrementalData) {
   console.log(changes);
+
   // see gojs-angular-basic for an example model changed handler that preserves immutability
   // when setting state, be sure to set skipsDiagramUpdate: true since GoJS already has this update
 };
@@ -143,6 +161,8 @@ public initPalette(): go.Palette {
   palette.model = $(go.GraphLinksModel);
   return palette;
 }
+
+
 
 
 
