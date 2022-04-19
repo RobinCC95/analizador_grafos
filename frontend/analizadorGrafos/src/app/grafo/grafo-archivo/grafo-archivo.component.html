@@ -1,0 +1,29 @@
+<h3>seleccione una opcion</h3>
+
+<div class="row">
+  <div class="col s4">
+    <div>
+      <div>
+        <div >
+          <!--formulario aqui-->
+
+        </div>
+        <!--modificar funcion que valide el formulario-->
+        <a class="btn btn-floating pulse" (click)="graficarGrafoData()"><i class="material-icons">menu</i></a>
+      </div>
+      <div>
+        <div class="col s5"><p>cargar datos: </p></div>
+        <div class="col s1"><a class="btn btn-floating pulse" ><i class="material-icons">menu</i></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="col s8">
+    <div *ngIf="validar ; else datosErroneos">
+      <app-grafo-view [listNodos]="nodosData" [listEdges]="edgesData"></app-grafo-view>
+    </div>
+
+    <ng-template #datosErroneos>
+      <p>ingrese los datos correctamente</p>
+    </ng-template>
+  </div>
+</div>

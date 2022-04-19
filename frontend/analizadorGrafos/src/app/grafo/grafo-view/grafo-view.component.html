@@ -3,8 +3,8 @@
   <div class="col s7">
     <gojs-diagram
       [initDiagram]='initDiagram'
-      [nodeDataArray]='state.diagramNodeData'
-      [linkDataArray]='state.diagramLinkData'
+      [nodeDataArray]='getNodoData()'
+      [linkDataArray]='getEdgesData()'
       [modelData]='state.diagramModelData'
       [skipsDiagramUpdate]='state.skipsDiagramUpdate'
       (modelChange)='diagramModelChange($event)'

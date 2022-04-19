@@ -4,10 +4,12 @@ import { GrafoViewComponent } from './grafo-view/grafo-view.component';
 import { GojsAngularModule } from 'gojs-angular';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { GrafoArchivoComponent } from './grafo-archivo/grafo-archivo.component';
 
 @NgModule({
   declarations: [
-    GrafoViewComponent
+    GrafoViewComponent,
+    GrafoArchivoComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
   ],
   exports: [
-    GrafoViewComponent
+    GrafoViewComponent,
+    GrafoArchivoComponent
   ]
 })
 export class GrafoModule { }

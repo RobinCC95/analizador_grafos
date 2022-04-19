@@ -12,8 +12,9 @@ import produce from "immer";
 })
 
 export class GrafoViewComponent implements OnInit {
-
+  @Input()
   listNodos = [{}];
+  @Input()
   listEdges= [{}];
 
 
@@ -26,40 +27,39 @@ export class GrafoViewComponent implements OnInit {
   public state = {
     // Diagram state props
     diagramNodeData: this.listNodos,
-      diagramLinkData: this.listEdges,
-      diagramModelData: { prop: 'value' },
-      skipsDiagramUpdate: false,
-      selectedNodeData: null, // used by InspectorComponent
+    diagramLinkData: this.listEdges,
+    diagramModelData: { prop: 'value' },
+    skipsDiagramUpdate: false,
+    selectedNodeData: null, // used by InspectorComponent
 
-      // Palette state props
-      paletteNodeData: [
-        { key: 'nodoRed', text: 'nodoRed', color: 'red' },
-        { key: 'nodoBlue', text: 'nodoBlue', color: 'Blue' }
-      ],
-      paletteModelData: { prop: 'val' }
-    };
+    // Palette state props
+    paletteNodeData: [
+      { key: 'nodoRed', text: 'nodoRed', color: 'red' },
+      { key: 'nodoBlue', text: 'nodoBlue', color: 'Blue' }
+    ],
+    paletteModelData: { prop: 'val' }
+  };
 
-  public initVariables() {
-    if (this.listNodos.length == 1) {
+  public getNodoData() {
+    if (this.listNodos.length <= 1) {
       this.listNodos = [
         { id: 'Alpha', text: "Alpha", color: 'lightblue' },
           { id: 'Beta', text: "Beta", color: 'orange' },
           { id: 'Omega', text: "Omega", color: 'red' }
         ];
-      console.log(this.listNodos);
+      }
+    return this.listNodos;
+  }
 
+  public getEdgesData() {
+    if (this.listEdges.length <= 1) {
       this.listEdges=[
         { key: -1, from: 'Alpha', to: 'Beta' },
         { key: 2, from: 'Alpha', to: 'Omega' }
-
       ];
 
-      }
-      else {
-        alert('no se inicializaron los nodos');
-
     }
-    return this.listNodos;
+    return this.listEdges;
   }
 
   public diagramDivClassName: string = 'myDiagramDiv';
