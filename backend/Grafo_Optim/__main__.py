@@ -1,4 +1,4 @@
-from modelo.grafo import Grafo
+""" from modelo.grafo import Grafo
 from gui.graficar_grafo import Graficar_grafo
 
 def main():
@@ -17,4 +17,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main() """
