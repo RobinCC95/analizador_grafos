@@ -139,7 +139,9 @@ public diagramModelChange = function(changes: go.IncrementalData) {
   // when setting state, be sure to set skipsDiagramUpdate: true since GoJS already has this update
 };
 
-
+public reinitModel(){
+  console.log('presiono');
+}
 
 
 public initPalette(): go.Palette {
