@@ -24,17 +24,7 @@ app.config['MONGO_URI'] = "mongodb+srv://admin:0000@cluster0.8fq1b.mongodb.net/g
 app.config['MONGO_DBNAME'] = "grafo_db"
 app.json_encoder = JSONEncoder
 #app.config['MONGO_URI'] = "mongodb://localhost:27017/grafo_db"
-#app.json_encoder = JSONEncoder
 mongo = PyMongo(app)
-
-@app.route('/users', methods=['POST'])
-def create_user():
-	#receiving data
-	mongo.db.users.insert_one(request.json)
-	print(request.json)
-	return {'message':'received'}
-
-
 
 @app.before_request
 def before_request():
@@ -46,19 +36,31 @@ def after_request(response):
 	return response
 
 
+@app.route('/users', methods=['POST'])
+def create_user():
+	#receiving data
+	mongo.db.users.insert_one(request.json)
+	print(request.json)
+	return {'message':'received'}
 
 
 @app.route('/grafo/listar-grafo', methods=['GET'])
 def listar_grafo():
     if request.method == 'GET':
-        data = mongo.db.grafo.find({})
+        data = mongo.db.grafo_registro.find({})
         listar_documentos = list(data)
         if data == None:
             data = []
         return jsonify({'transaccion': True, "data":listar_documentos})
 
-
-
+@app.route('/users/listar-user', methods=['GET'])
+def listar_user():
+    if request.method == 'GET':
+        data = mongo.db.user_registro.find({})
+        listar_documentos = list(data)
+        if data == None:
+            data = []
+        return jsonify({'transaccion': True, "data":listar_documentos})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0',port=5000)
