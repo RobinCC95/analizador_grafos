@@ -28,6 +28,7 @@ mongo = PyMongo(app)
 @app.route('/users', methods=['POST'])
 def create_user():
 	#receiving data
+	mongo.db.users.insert_one(request.json)
 	print(request.json)
 	return {'message':'received'}
 
