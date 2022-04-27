@@ -6,6 +6,47 @@ import datetime
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
+#estrutura de dados
+grafo_struct = {
+    "_id" : "6265ed5d478ab5ca7549b336",
+    "user" : {
+        "userId" : 123,
+        "name" : "Robin"
+    },
+    "nodes" : [ 
+        {
+            "id" : "Alpha",
+            "text" : "Alpha",
+            "color" : "lightblue"
+        }, 
+        {
+            "id" : "Beta",
+            "text" : "Beta",
+            "color" : "orange"
+        }, 
+        {
+            "id" : "Omega",
+            "text" : "Omega",
+            "color" : "red"
+        }
+    ],
+    "edges" : [ 
+        {
+            "key" : -1,
+            "from" : "Alpha",
+            "to" : "Beta"
+        }, 
+        {
+            "key" : 2,
+            "from" : "Alpha",
+            "to" : "Omega"
+        }
+    ],
+    "adjacencies" : []
+}
+
+
+
 #manejo de errores al traer la informacion
 
 class JSONEncoder(json.JSONEncoder):
@@ -36,15 +77,24 @@ def after_request(response):
 	return response
 
 
-@app.route('/users', methods=['POST'])
+@app.route('/grafos/add-grafo', methods=['POST'])
+def create_grafo():
+	if request.method == 'POST':
+		#receiving data
+		data = mongo.db.grafo_registro.insert_one(request.json)
+		return jsonify({'transaccion': True, "data":"ok"})
+
+@app.route('/users/add-user', methods=['POST'])
 def create_user():
-	#receiving data
-	mongo.db.users.insert_one(request.json)
-	print(request.json)
-	return {'message':'received'}
+	if request.method == 'POST':
+		#receiving data
+		data = request.json
+		
+		data = mongo.db.user_registro.insert_one(request.json)
+		return jsonify({'transaccion': True, "data":"ok"})
 
 
-@app.route('/grafo/listar-grafo', methods=['GET'])
+@app.route('/grafos/listar-grafo', methods=['GET'])
 def listar_grafo():
     if request.method == 'GET':
         data = mongo.db.grafo_registro.find({})
@@ -64,3 +114,7 @@ def listar_user():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0',port=5000)
+
+
+
+
