@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 
 #estrutura de dados
 grafo_struct = {
-    "_id" : "6265ed5d478ab5ca7549b336",
+    "_id" : ObjectId("62695d1b4ed76546035e6555"),
     "user" : {
         "userId" : 123,
         "name" : "Robin"
@@ -61,6 +61,9 @@ class JSONEncoder(json.JSONEncoder):
 app = Flask(__name__)
 
 #conexion con MongoDB
+#username = "admin"
+#password = 0000
+#name_bd = grafo_db
 app.config['MONGO_URI'] = "mongodb+srv://admin:0000@cluster0.8fq1b.mongodb.net/grafo_db?retryWrites=true&w=majority"
 app.config['MONGO_DBNAME'] = "grafo_db"
 app.json_encoder = JSONEncoder
@@ -81,18 +84,47 @@ def after_request(response):
 def create_grafo():
 	if request.method == 'POST':
 		#receiving data
-		data = mongo.db.grafo_registro.insert_one(request.json)
-		return jsonify({'transaccion': True, "data":"ok"})
+		id = mongo.db.grafo_registro.insert_one(request.json)
+		return jsonify({'transaccion': True, "data":str(id)})
 
 @app.route('/users/add-user', methods=['POST'])
 def create_user():
 	if request.method == 'POST':
 		#receiving data
-		data = request.json
-		
-		data = mongo.db.user_registro.insert_one(request.json)
-		return jsonify({'transaccion': True, "data":"ok"})
+		id = mongo.db.user_registro.insert_one(request.json)
+		return jsonify({'transaccion': True, "data":str(id)})
 
+@app.route('/grafos/get-grafo/<id>', methods=['GET'])
+def get_grafo(id):
+	if request.method == 'GET':
+		#receiving data
+		grafo = mongo.db.grafo_registro.find_one({"_id": ObjectId(id)})
+		return jsonify({'transaccion': True, "data":grafo})
+
+@app.route('/users/get-user/<id>', methods=['GET'])
+def get_user(id):
+	if request.method == 'GET':
+		#receiving data
+		user = mongo.db.user_registro.find_one({"_id": ObjectId(id)})
+		return jsonify({'transaccion': True, "data":user})
+
+@app.route('/grafos/delete-grafo/<id>', methods=['DELETE'])
+def delete_grafo(id):
+	if request.method == 'DELETE':
+		#receiving data
+		mongo.db.grafo_registro.delete_one({"_id": ObjectId(id)})
+		return jsonify({'transaccion': True})
+
+@app.route('/users/delete-user/<id>', methods=['DELETE'])
+def delete_user(id):
+	if request.method == 'DELETE':
+		#receiving data
+		mongo.db.user_registro.delete_one({"_id": ObjectId(id)})
+		return jsonify({'transaccion': True})
+
+@app.errorhandler(404)
+def not_found(error):
+	return jsonify({'error': 'Not found','url': request.url}), 404
 
 @app.route('/grafos/listar-grafo', methods=['GET'])
 def listar_grafo():
