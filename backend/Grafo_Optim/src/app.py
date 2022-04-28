@@ -1,6 +1,6 @@
 
 #from pymongo import MongoClient
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request
 import json 
 import datetime
 from flask_pymongo import PyMongo
@@ -79,14 +79,14 @@ def after_request(response):
 	print("Despues de la peticion...")
 	return response
 
-
+#***********************hacer validacion de la entrada de datos y generar id como ObjectId
 @app.route('/grafos/add-grafo', methods=['POST'])
 def create_grafo():
 	if request.method == 'POST':
 		#receiving data
 		id = mongo.db.grafo_registro.insert_one(request.json)
 		return jsonify({'transaccion': True, "data":str(id)})
-
+#***********************hacer validacion de la entrada de datos y generar id como ObjectId
 @app.route('/users/add-user', methods=['POST'])
 def create_user():
 	if request.method == 'POST':
