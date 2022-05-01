@@ -1,23 +1,28 @@
 <p>grafo-listar works!</p>
-<!--<div>
+<!---->
+<div>
   <table>
     <thead>
       <tr>
           <th>id</th>
+          <!--
           <th>User Name</th>
           <th>N. Nodos</th>
-          <th>N. Aristas </th>
+          <th>N. Aristas </th>-->
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let grafo of grafoArray">
-        <td>grafo._id</td>
-        <td>Eclair</td>
-        <td>$0.87</td>
-        <td>vvas</td>
+      <tr *ngFor="let grafo of lista">
+        <td>
+          {{grafo._id}}
+        </td>
+        <!--
+        <td>{{grafo.user}}</td>
+        <td>{{grafo.nodes.length}}</td>
+        <td>{{grafo.edges.length}}</td>-->
       </tr>
     </tbody>
   </table>
 </div>
--->
+

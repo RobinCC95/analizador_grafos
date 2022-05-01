@@ -7,6 +7,8 @@ import { LoginUserComponent } from './login-user/login-user.component';
 import { HeaderComponent } from './template/header/header.component';
 import { FooterComponent } from './template/footer/footer.component';
 import { NotFoundComponent } from './template/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UsuarioService } from './usuario.service';
 
 @NgModule({
   declarations: [
@@ -18,10 +20,11 @@ import { NotFoundComponent } from './template/not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   exports:[],
-  providers: [],
+  providers: [UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

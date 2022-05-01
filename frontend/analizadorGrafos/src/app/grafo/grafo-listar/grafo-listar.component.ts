@@ -9,19 +9,28 @@ import { GrafoService } from '../grafo.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GrafoListarComponent implements OnInit {
-  grafoArray: GrafoModel[] = [];
+  grafoArray: GrafoModel[];
+  lista = [{_id:"1"},{_id:"2"},{_id:"3"}];
   constructor(private grafoService: GrafoService ) { }
 
   ngOnInit(): void {
     this.grafoService.getListGrafos().subscribe(
-      (data) => {
-        console.log(data);
+      data => {
+        //console.log(data);
         this.grafoArray = data.data;
+        console.log(this.grafoArray);
       },
-      error => {
-        console.log(error);
-      }
+      error => console.log(error)
     );
+    /*
+    this.grafoService.getGrafo("16534684").subscribe(
+      data => {
+        console.log(data);
+      },
+      error => console.log(error)
+    );*/
+
+
   }
 
 }
