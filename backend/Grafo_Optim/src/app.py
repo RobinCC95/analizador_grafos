@@ -99,6 +99,8 @@ def get_grafo(id):
 	if request.method == 'GET':
 		#receiving data
 		grafo = mongo.db.grafo_registro.find_one({"_id": id})
+		if grafo == None:
+			return jsonify({'transaccion': False, "data": "No se encontro el Grafo"}),404
 		return jsonify({'transaccion': True, "data":grafo})
 
 @app.route('/users/get-user/<id>', methods=['GET'])
@@ -106,21 +108,23 @@ def get_user(id):
 	if request.method == 'GET':
 		#receiving data
 		user = mongo.db.user_registro.find_one({"_id": id})
+		if user == None :
+			return jsonify({'transaccion': False, "data":"no se encontro usuario"}),404
 		return jsonify({'transaccion': True, "data":user})
 
 @app.route('/grafos/delete-grafo/<id>', methods=['DELETE'])
 def delete_grafo(id):
 	if request.method == 'DELETE':
 		#receiving data
-		mongo.db.grafo_registro.delete_one({"_id": id})
-		return jsonify({'transaccion': True})
+		status = mongo.db.grafo_registro.delete_one({"_id": id})
+		return jsonify({'transaccion': True, 'estado':str(status)})
 
 @app.route('/users/delete-user/<id>', methods=['DELETE'])
 def delete_user(id):
 	if request.method == 'DELETE':
 		#receiving data
-		mongo.db.user_registro.delete_one({"_id": id})
-		return jsonify({'transaccion': True})
+		status = mongo.db.user_registro.delete_one({"_id": id})
+		return jsonify({'transaccion': True, 'estado':str(status)})
 
 @app.errorhandler(404)
 def not_found(error):
@@ -132,7 +136,7 @@ def listar_grafo():
         data = mongo.db.grafo_registro.find({})
         listar_documentos = list(data)
         if data == None:
-            data = []
+            return jsonify({'transaccion': False, "data":[]}),404
         return jsonify({'transaccion': True, "data":listar_documentos})
 
 @app.route('/users/listar-user', methods=['GET'])
@@ -141,7 +145,7 @@ def listar_user():
         data = mongo.db.user_registro.find({})
         listar_documentos = list(data)
         if data == None:
-            data = []
+            return jsonify({'transaccion': False, "data": []}),404
         return jsonify({'transaccion': True, "data":listar_documentos})
 
 if __name__ == '__main__':
