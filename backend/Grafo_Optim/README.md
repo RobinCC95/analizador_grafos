@@ -5,9 +5,11 @@ proyecto de grafos que se encarga de hacer optimizaciones con los siguientes par
 - librerias a instalar
     - python
     *pip install virtualenv
+    *python -m venv env
+    *source venv/Scripts/activate
     *pip install flask
     *pip install Flask-PyMongo
-    *pip install pymongo(src)
+    *pip install pymongo[srv]
 
 pasos para instalacion
 1- se crea un entorno virual en la carpeta Grafo_Optim y activelo

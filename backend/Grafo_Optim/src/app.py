@@ -98,28 +98,28 @@ def create_user():
 def get_grafo(id):
 	if request.method == 'GET':
 		#receiving data
-		grafo = mongo.db.grafo_registro.find_one({"_id": ObjectId(id)})
+		grafo = mongo.db.grafo_registro.find_one({"_id": id})
 		return jsonify({'transaccion': True, "data":grafo})
 
 @app.route('/users/get-user/<id>', methods=['GET'])
 def get_user(id):
 	if request.method == 'GET':
 		#receiving data
-		user = mongo.db.user_registro.find_one({"_id": ObjectId(id)})
+		user = mongo.db.user_registro.find_one({"_id": id})
 		return jsonify({'transaccion': True, "data":user})
 
 @app.route('/grafos/delete-grafo/<id>', methods=['DELETE'])
 def delete_grafo(id):
 	if request.method == 'DELETE':
 		#receiving data
-		mongo.db.grafo_registro.delete_one({"_id": ObjectId(id)})
+		mongo.db.grafo_registro.delete_one({"_id": id})
 		return jsonify({'transaccion': True})
 
 @app.route('/users/delete-user/<id>', methods=['DELETE'])
 def delete_user(id):
 	if request.method == 'DELETE':
 		#receiving data
-		mongo.db.user_registro.delete_one({"_id": ObjectId(id)})
+		mongo.db.user_registro.delete_one({"_id": id})
 		return jsonify({'transaccion': True})
 
 @app.errorhandler(404)
