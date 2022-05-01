@@ -10,6 +10,7 @@ proyecto de grafos que se encarga de hacer optimizaciones con los siguientes par
     *pip install flask
     *pip install Flask-PyMongo
     *pip install pymongo[srv]
+    *pip install flask-cors
 
 pasos para instalacion
 1- se crea un entorno virual en la carpeta Grafo_Optim y activelo

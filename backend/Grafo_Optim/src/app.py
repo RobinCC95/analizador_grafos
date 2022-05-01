@@ -5,6 +5,7 @@ import json
 import datetime
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from flask_cors import CORS, cross_origin
 
 #estrutura de dados
 grafo_struct = {
@@ -59,6 +60,10 @@ class JSONEncoder(json.JSONEncoder):
 
 
 app = Flask(__name__)
+#implementacion de CORS
+CORS(app)
+
+
 
 #conexion con MongoDB
 #username = "admin"
@@ -70,6 +75,9 @@ app.json_encoder = JSONEncoder
 #app.config['MONGO_URI'] = "mongodb://localhost:27017/grafo_db"
 mongo = PyMongo(app)
 
+# implementacion cors
+@cross_origin
+
 @app.before_request
 def before_request():
 	print("Antes de la peticion...")
@@ -79,14 +87,13 @@ def after_request(response):
 	print("Despues de la peticion...")
 	return response
 
-#***********************hacer validacion de la entrada de datos y generar id como ObjectId
 @app.route('/grafos/add-grafo', methods=['POST'])
 def create_grafo():
 	if request.method == 'POST':
 		#receiving data
 		id = mongo.db.grafo_registro.insert_one(request.json)
 		return jsonify({'transaccion': True, "data":str(id)})
-#***********************hacer validacion de la entrada de datos y generar id como ObjectId
+		
 @app.route('/users/add-user', methods=['POST'])
 def create_user():
 	if request.method == 'POST':
@@ -117,14 +124,14 @@ def delete_grafo(id):
 	if request.method == 'DELETE':
 		#receiving data
 		status = mongo.db.grafo_registro.delete_one({"_id": id})
-		return jsonify({'transaccion': True, 'estado':str(status)})
+		return jsonify({'transaccion': True, 'data':str(status)})
 
 @app.route('/users/delete-user/<id>', methods=['DELETE'])
 def delete_user(id):
 	if request.method == 'DELETE':
 		#receiving data
 		status = mongo.db.user_registro.delete_one({"_id": id})
-		return jsonify({'transaccion': True, 'estado':str(status)})
+		return jsonify({'transaccion': True, 'data':str(status)})
 
 @app.errorhandler(404)
 def not_found(error):
