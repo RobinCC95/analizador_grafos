@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./grafo-archivo.component.css']
 })
 export class GrafoArchivoComponent implements OnInit {
-
+  public archivos: any = []
   validar = false;
   nodosData = [
     { id: 'uno', text: "uno", color: 'blue' },
@@ -23,6 +23,13 @@ export class GrafoArchivoComponent implements OnInit {
     this.validar = this.validar ? false : true;
   }
 
+  capturarFile(event: any):any{
+    const archivoCapturado = event.target.files[0]
+    this.archivos.push(archivoCapturado)
+    console.log(archivoCapturado);
+  }
+    
+    
   constructor() { }
 
   ngOnInit(): void {
