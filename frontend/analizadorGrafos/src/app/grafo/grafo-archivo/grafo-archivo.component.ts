@@ -28,8 +28,8 @@ export class GrafoArchivoComponent implements OnInit {
     this.archivos.push(archivoCapturado)
     console.log(archivoCapturado);
   }
-    
-    
+
+
   constructor() { }
 
   ngOnInit(): void {

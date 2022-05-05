@@ -1,26 +1,31 @@
-<p>grafo-listar works!</p>
-<!---->
+
 <div>
   <table>
     <thead>
       <tr>
           <th>id</th>
-          <!--
-          <th>User Name</th>
           <th>N. Nodos</th>
-          <th>N. Aristas </th>-->
+          <th>N. Aristas </th>
+          <th>Opcion</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let grafo of lista">
-        <td>
-          {{grafo._id}}
-        </td>
-        <!--
-        <td>{{grafo.user}}</td>
+      <tr *ngFor="let grafo of grafoArray" >
+        <td> {{grafo._id}}</td>
         <td>{{grafo.nodes.length}}</td>
-        <td>{{grafo.edges.length}}</td>-->
+        <td>{{grafo.edges.length}}</td>
+        <td>
+          <div class="row">
+            <div class="col s5">
+              <a class="waves-effect waves-light btn blue" (click)="drawGrafo(grafo._id)"><i class="material-icons right">image_aspect_ratio</i>graficar</a>
+            </div>
+            <div class="col s5">
+              <a class="waves-effect waves-light btn red" (click)="deleteGrafo(grafo._id)"><i class="material-icons right">delete_forever</i>borrar</a>
+            </div>
+
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
