@@ -10,6 +10,10 @@ const routes: Routes = [
     component: GrafoViewComponent
   },
   {
+    path: 'grafo-view/:id',
+    component: GrafoViewComponent
+  },
+  {
     path: 'grafo-archivo',
     component: GrafoArchivoComponent
   },

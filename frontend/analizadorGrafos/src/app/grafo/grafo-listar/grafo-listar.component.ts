@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { GrafoModel } from 'src/app/modelos/grafoModel';
 import { GrafoService } from '../grafo.service';
 
@@ -6,14 +7,16 @@ import { GrafoService } from '../grafo.service';
 @Component({
   selector: 'app-grafo-listar',
   templateUrl: './grafo-listar.component.html',
-  styleUrls: ['./grafo-listar.component.css']//,
-  //changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./grafo-listar.component.css']
 })
 
 export class GrafoListarComponent implements OnInit {
   public grafoArray : GrafoModel[];
+  nodes: object = [];
+  edges: object = [];
+  validar = false;
 
-  constructor(private grafoService: GrafoService ) { }
+  constructor(private grafoService: GrafoService, private router : Router) { }
 
   ngOnInit(): void {
 
@@ -35,6 +38,7 @@ export class GrafoListarComponent implements OnInit {
   }
   drawGrafo(grafoId:string){
     console.log(grafoId);
+    this.router.navigate(['/grafo-view',grafoId]);
 
   }
   deleteGrafo(grafoId:string){

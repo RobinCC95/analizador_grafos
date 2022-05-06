@@ -1,4 +1,4 @@
-
+<ng-container *ngIf="grafoArray">
 <div>
   <table>
     <thead>
@@ -18,12 +18,11 @@
         <td>
           <div class="row">
             <div class="col s5">
-              <a class="waves-effect waves-light btn blue" (click)="drawGrafo(grafo._id)"><i class="material-icons right">image_aspect_ratio</i>graficar</a>
+              <a class="waves-effect waves-light btn blue"  (click)="drawGrafo(grafo._id)"><i class="material-icons right">image_aspect_ratio</i>graficar</a>
             </div>
             <div class="col s5">
               <a class="waves-effect waves-light btn red" (click)="deleteGrafo(grafo._id)"><i class="material-icons right">delete_forever</i>borrar</a>
             </div>
-
           </div>
         </td>
       </tr>
@@ -31,3 +30,4 @@
   </table>
 </div>
 
+</ng-container>

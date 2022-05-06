@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as go from 'gojs';
 import { DataSyncService, DiagramComponent, PaletteComponent } from 'gojs-angular';
 import produce from "immer";
+import { GrafoService } from '../grafo.service';
 
 @Component({
   selector: 'app-grafo-view',
@@ -16,35 +18,36 @@ export class GrafoViewComponent implements OnInit {
   @ViewChild('myDiagram', { static: true }) public myDiagramComponent: DiagramComponent;
   @ViewChild('myPalette', { static: true }) public myPaletteComponent: PaletteComponent;
 
-  @Input()
-  listNodos = [{}];
-  @Input()
-  listEdges= [{}];
+
+  idGrafoDefect = "";
 
 
+constructor(private router: Router, private routerAct : ActivatedRoute ,private grafoService : GrafoService, private cdr: ChangeDetectorRef) { }
+
+  ngOnInit() {
+    this.routerAct.paramMap.subscribe(params => {
+      if (params.has('id')) {
+        this.idGrafoDefect = params.get('id')!;
+        console.log(this.idGrafoDefect);
+        this.grafoService.getGrafo(this.idGrafoDefect).subscribe(
+          data => {
+            console.log(data);
+            this.state.diagramNodeData = data.data.nodes;
+            this.state.diagramLinkData = data.data.edges;
+            //this.cdr.detectChanges();
+          },
+          error => console.log(error)
+        );
+      }
+    });
 
 
-  ngOnInit(): void {
-  }
+}
 
-  /*public state = {
-    // Diagram state props
-    diagramNodeData: this.listNodos,
-    diagramLinkData: this.listEdges,
-    diagramModelData: { prop: 'value' },
-    skipsDiagramUpdate: false,
-    selectedNodeData: null, // used by InspectorComponent
-
-    // Palette state props
-    paletteNodeData: [
-      { key: 'nodoRed', text: 'nodoRed', color: 'red' },
-      { key: 'nodoBlue', text: 'nodoBlue', color: 'Blue' }
-    ],
-    paletteModelData: { prop: 'val' }
-  };*/
 
   public state = {
     // Diagram state props
+
     diagramNodeData: [
       { id: 'Alpha', text: "Alpha", color: 'lightblue', loc: "0 0" },
       { id: 'Beta', text: "Beta", color: 'orange', loc: "100 0" },
@@ -52,12 +55,12 @@ export class GrafoViewComponent implements OnInit {
       { id: 'Delta', text: "Delta", color: 'pink', loc: "100 100" }
     ],
     diagramLinkData: [
-        { key: -1, from: 'Alpha', to: 'Beta', fromPort: 'r', toPort: '1' },
-        { key: -2, from: 'Alpha', to: 'Gamma', fromPort: 'b', toPort: 't' },
-        { key: -3, from: 'Beta', to: 'Beta' },
-        { key: -4, from: 'Gamma', to: 'Delta', fromPort: 'r', toPort: 'l' },
-        { key: -5, from: 'Delta', to: 'Alpha', fromPort: 't', toPort: 'r' }
-    ],
+      { key: -1, from: 'Alpha', to: 'Beta', fromPort: 'r', toPort: '1' },
+      { key: -2, from: 'Alpha', to: 'Gamma', fromPort: 'b', toPort: 't' },
+      { key: -3, from: 'Beta', to: 'Beta' },
+      { key: -4, from: 'Gamma', to: 'Delta', fromPort: 'r', toPort: 'l' },
+      { key: -5, from: 'Delta', to: 'Alpha', fromPort: 't', toPort: 'r' }
+  ],
     diagramModelData: { prop: 'value' },
     skipsDiagramUpdate: false,
     selectedNodeData: null, // used by InspectorComponent
@@ -185,7 +188,7 @@ export class GrafoViewComponent implements OnInit {
     return palette;
   }
 
-  constructor(private cdr: ChangeDetectorRef) { }
+
 
   // Overview Component testing
   public oDivClassName = 'myOverviewDiv';
