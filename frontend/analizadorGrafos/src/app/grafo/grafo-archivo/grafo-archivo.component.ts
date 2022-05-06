@@ -7,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GrafoArchivoComponent implements OnInit {
   public archivos: any = []
+  numNodos: number = 0;
+  numEdges: number = 0;
   validar = false;
+
+  getLista(limSup:number){
+    let lista = [];
+    for (let index = 0; index < limSup; index++) {
+      lista.push(index);
+    }
+    return lista;
+  }
+
   nodosData = [
     { id: 'uno', text: "uno", color: 'blue' },
       { id: 'dos', text: "dos", color: 'green' },

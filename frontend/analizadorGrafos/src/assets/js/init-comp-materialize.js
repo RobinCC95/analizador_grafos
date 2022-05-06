@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.fixed-action-btn');
-  var instances = M.FloatingActionButton.init(elems, {
-    direction: 'left'
-  });
-
-  var elems = document.querySelectorAll('.dropdown-trigger');
-  var instances2 = M.Dropdown.init(elems, {});
+  var elems = document.querySelectorAll('.collapsible');
+  var instances = M.Collapsible.init(elems, {});
+  var elems2 = document.querySelectorAll('select');
+  var instances2 = M.FormSelect.init(elems2, {});
 
 });

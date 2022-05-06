@@ -1,33 +1,118 @@
-<!-- <h3>seleccione una opcion</h3>
 
-<div class="row">
-  <div class="col s4">
-    <div>
-      <div>
-        <div > -->
-          <!--formulario aqui-->
-<!-- 
-        </div> -->
-        <!--modificar funcion que valide el formulario-->
-        <!-- <a class="btn btn-floating pulse" (click)="graficarGrafoData()"><i class="material-icons">menu</i></a>
-      </div>
-      <div>
-        <div class="col s5"><p>cargar datos: </p></div>
-        <div class="col s1"><a class="btn btn-floating pulse" ><i class="material-icons">menu</i></a></div>
-      </div>
-    </div>
-  </div>
-  <div class="col s8">
-    <div *ngIf="validar ; else datosErroneos">
-      <app-grafo-view [listNodos]="nodosData" [listEdges]="edgesData"></app-grafo-view>
-    </div>
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Implementar grafo</div>
+      <div class="collapsible-body">
 
-    <ng-template #datosErroneos>
-      <p>ingrese los datos correctamente</p>
-    </ng-template>
-  </div>
-</div> -->
-<div>
-  <input (change)="capturarFile($event)" type="file">
-</div>
+          <form  #formGrafo="ngForm">
+            {{formGrafo.value | json}}
+            <div class="row">
+              <div class="input-field col s6">
+                <input name="_id" type="text" class="validate" ngModel>
+                <label for="_id">Id grafo</label>
+              </div>
+              <div class="input-field col s3">
+                <input name="num_nodes" type="number" class="validate" ngModel>
+                <label for="num_nodes">numero de nodos</label>
+              </div>
+              <div class="input-field col s3">
+                <input name="num_edges" type="number" class="validate" ngModel>
+                <label for="num_edges">numero de adjacencias</label>
+              </div>
+            </div>
+
+            <!--generar n inputs para los nodos y aristas-->
+            <div >
+              <div *ngFor="let item of getLista(3)" ngModelGroup = "nodes">
+                <div class="row">
+                  <div class="input-field col s3">
+                    <input name="id" type="text" class="validate" ngModel>
+                    <label for="id">Nombre del nodo</label>
+                  </div>
+                  <div class="input-field col s3">
+                    <select name="color" ngModel>
+                      <option value="" disabled selected>Seleccione color</option>
+                      <option value="yellow">Amarillo</option>
+                      <option value="blue">Azul</option>
+                      <option value="red">Rojo</option>
+                    </select>
+                    <label>Seleccione un color</label>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of getLista(3)" ngModelGroup = "edges">
+                <div class="row">
+                  <div class="input-field col s3">
+                    <input name="key" type="text" class="validate" ngModel>
+                    <label for="key">key edge</label>
+                  </div>
+                  <div class="input-field col s3">
+                    <input name="from" type="text" class="validate" ngModel>
+                    <label for="from">Del nodo </label>
+                  </div>
+                  <div class="input-field col s3">
+                    <input name="to" type="text" class="validate" ngModel>
+                    <label for="to">Hasta el nodo</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Cargar grafo</div>
+      <div class="collapsible-body">
+        <div>
+          <span>
+            cargue el archivo .json donde tenga la informacion de su grafo que
+            debe tener la siguiente estructura: <br>
+            _id : id del grafo <br>
+            nodes : object de nodos [] <br>
+            edges : object de aristas [] <br>
+            adjacencies : matriz de adjacencias <br>
+
+          </span>
+        </div>
+        <div>
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn black">
+                <span >File</span>
+                <input type="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">whatshot</i>Listar grafos</div>
+      <div class="collapsible-body">
+        <div>
+          <span>Ir a listar todos los grafos disponibles en la base de datos.</span>
+        </div>
+        <div>
+          <a class="waves-effect waves-light btn black" href="grafo-listar"><i class="material-icons right">cloud</i>Listar</a>
+        </div>
+
+
+      </div>
+    </li>
+  </ul>
+
+
+
+
+
+
+
+
 
