@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GrafoModel } from 'src/app/modelos/grafoModel';
+import { GrafoService } from '../grafo.service';
 
 @Component({
   selector: 'app-grafo-archivo',
@@ -18,7 +21,7 @@ export class GrafoArchivoComponent implements OnInit {
     }
     return lista;
   }
-
+  grafoTemp: GrafoModel;
   nodosData = [
     { id: 'uno', text: "uno", color: 'blue' },
       { id: 'dos', text: "dos", color: 'green' },
@@ -30,8 +33,23 @@ export class GrafoArchivoComponent implements OnInit {
     { key: 3, from: 'tres', to: 'uno' }
   ];
 
-  graficarGrafoData() {
-    this.validar = this.validar ? false : true;
+
+  addNodo(nodo:any){
+    console.log('add nodo');
+  }
+  addEdge(edge:any){
+    console.log('add edge');
+  }
+  addGrafo(datos:any){
+    console.log('enviar grafo');
+
+    //**validar datos formulario y crear grafoTemp */
+
+    //save grafo
+    this.grafoService.createGrafo(this.grafoTemp);
+    //router id
+    this.router.navigate(['/grafo-view',this.grafoTemp._id]);
+
   }
 
   capturarFile(event: any):any{
@@ -41,7 +59,7 @@ export class GrafoArchivoComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor(private grafoService : GrafoService, private router: Router) { }
 
   ngOnInit(): void {
   }

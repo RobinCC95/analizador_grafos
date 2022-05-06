@@ -7,41 +7,35 @@
           <form  #formGrafo="ngForm">
             {{formGrafo.value | json}}
             <div class="row">
-              <div class="input-field col s6">
+              <div class="input-field col s4">
                 <input name="_id" type="text" class="validate" ngModel>
                 <label for="_id">Id grafo</label>
-              </div>
-              <div class="input-field col s3">
-                <input name="num_nodes" type="number" class="validate" ngModel>
-                <label for="num_nodes">numero de nodos</label>
-              </div>
-              <div class="input-field col s3">
-                <input name="num_edges" type="number" class="validate" ngModel>
-                <label for="num_edges">numero de adjacencias</label>
               </div>
             </div>
 
             <!--generar n inputs para los nodos y aristas-->
             <div >
-              <div *ngFor="let item of getLista(3)" ngModelGroup = "nodes">
+              <div ngModelGroup = "nodes" >
                 <div class="row">
-                  <div class="input-field col s3">
+                  <div class="input-field col s3" >
                     <input name="id" type="text" class="validate" ngModel>
                     <label for="id">Nombre del nodo</label>
                   </div>
                   <div class="input-field col s3">
                     <select name="color" ngModel>
-                      <option value="" disabled selected>Seleccione color</option>
                       <option value="yellow">Amarillo</option>
                       <option value="blue">Azul</option>
                       <option value="red">Rojo</option>
                     </select>
                     <label>Seleccione un color</label>
                   </div>
+                  <div class="col s3">
+                    <a class="waves-effect waves-light btn" (click)="addNodo('')"><i class="material-icons right">cloud</i>Add</a>
+                  </div>
                 </div>
               </div>
 
-              <div *ngFor="let item of getLista(3)" ngModelGroup = "edges">
+              <div ngModelGroup = "edges">
                 <div class="row">
                   <div class="input-field col s3">
                     <input name="key" type="text" class="validate" ngModel>
@@ -55,8 +49,13 @@
                     <input name="to" type="text" class="validate" ngModel>
                     <label for="to">Hasta el nodo</label>
                   </div>
+                  <div class="col s3">
+                    <a class="waves-effect waves-light btn" (click)="addEdge('')"><i class="material-icons right">cloud</i>Add</a>
+                  </div>
                 </div>
-
+              </div>
+              <div>
+                <a class="waves-effect waves-light btn" (click)="addGrafo(formGrafo.value)"><i class="material-icons right">cloud</i>Enviar</a>
               </div>
             </div>
           </form>
