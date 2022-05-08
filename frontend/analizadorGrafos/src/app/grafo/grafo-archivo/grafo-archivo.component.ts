@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GrafoModel } from 'src/app/modelos/grafoModel';
 import { GrafoService } from '../grafo.service';
 import { debounceTime } from 'rxjs';
+import { NodoModel } from 'src/app/modelos/nodoModel';
 
 @Component({
   selector: 'app-grafo-archivo',
@@ -23,8 +24,9 @@ export class GrafoArchivoComponent implements OnInit {
     return lista;
   }
   grafoTemp: GrafoModel;
-  nodosData: Object[];
+  nodosData: NodoModel[];
   edgesData: Object[];
+  vec1: NodoModel[] = [{ id: 'uno', text: '1', color: 'black' }, { id: 'dos', text: '2', color: 'black' }];
 
   constructor(private formBuilder: FormBuilder, private grafoService: GrafoService, private router: Router) {
     this.BuildForm();
@@ -56,18 +58,28 @@ export class GrafoArchivoComponent implements OnInit {
     this.formGrafo.get('color')!.setValue('');
     console.log(this.nodosData);
   }
+  siExisteNodo(id: string) {
+    for (let nodo in this.nodosData) {
+      if (this.nodosData[nodo].id == id) {
+        return true;
+      }
+    }
+    return false;
+  }
   addEdge() {
     let from = this.formGrafo.get('from')!.value;
     let to = this.formGrafo.get('to')!.value;
     let key = this.formGrafo.get('key')!.value;
     let edge = { from: from, to: to, key: key };
-    if (this.edgesData == null) this.edgesData = [edge];
-    else this.edgesData.push(edge);
-    this.formGrafo.get('from')!.setValue('');
-    this.formGrafo.get('to')!.setValue('');
-    this.formGrafo.get('key')!.setValue('');
-    //M.toast({html: 'I am a toast!'})
-    console.log(this.edgesData);
+    if (this.siExisteNodo(from) && this.siExisteNodo(to)) {
+      if (this.edgesData == null) this.edgesData = [edge];
+      else this.edgesData.push(edge);
+      this.formGrafo.get('from')!.setValue('');
+      this.formGrafo.get('to')!.setValue('');
+      this.formGrafo.get('key')!.setValue('');
+      //M.toast({html: 'I am a toast!'})
+      console.log(this.edgesData);
+    } else alert('nodos no existentes');
   }
   addGrafo(event: Event) {
     //**validar datos formulario y crear grafoTemp */
@@ -95,7 +107,7 @@ export class GrafoArchivoComponent implements OnInit {
           });
         //router id
         this.router.navigate(['/grafo-listar']);
-      }else alert('grafo no valido');
+      } else alert('grafo no valido');
 
     }
     else {
@@ -115,3 +127,4 @@ export class GrafoArchivoComponent implements OnInit {
 
 
 }
+

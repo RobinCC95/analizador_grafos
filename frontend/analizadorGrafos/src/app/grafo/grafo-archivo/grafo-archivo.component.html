@@ -77,11 +77,21 @@
             </button>
           </div>
         </div>
+
+        <!-- opcion para listar nodos para las aristas y evitar errores al escribir id nodo
+        <div class="input-field col s3">
+          <select id="color" formControlName="opcion">
+            <option value="{{v1}}" *ngFor="let v1 of nodosData" >{{v1.id}}</option>
+          </select>
+          <label>Seleccione un nodo</label>
+        </div>
+        -->
+
+
       </form>
     </div>
   </li>
   <li>
-
     <!--cargar grafo .json-->
     <div class="collapsible-header"><i class="material-icons">backup</i>Cargar grafo</div>
     <div class="collapsible-body">
