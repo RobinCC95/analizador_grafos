@@ -1,117 +1,131 @@
+<ul class="collapsible">
+  <li>
+    <!--implementacion del grafo-->
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Implementar grafo</div>
+    <div class="collapsible-body">
+      <!--formulario adicion datos grafo-->
+      <form [formGroup]="formGrafo" (ngSubmit)="addGrafo($event)">
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="_id" type="text" formControlName="_id">
+            <label for="_id">Id grafo</label>
+          </div>
+        </div>
 
-  <ul class="collapsible">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Implementar grafo</div>
-      <div class="collapsible-body">
 
-          <form  #formGrafo="ngForm">
-            {{formGrafo.value | json}}
-            <div class="row">
-              <div class="input-field col s4">
-                <input name="_id" type="text" class="validate" ngModel>
-                <label for="_id">Id grafo</label>
-              </div>
-            </div>
-
-            <!--generar n inputs para los nodos y aristas-->
-            <div >
-              <div ngModelGroup = "nodes" >
-                <div class="row">
-                  <div class="input-field col s3" >
-                    <input name="id" type="text" class="validate" ngModel>
-                    <label for="id">Nombre del nodo</label>
-                  </div>
-                  <div class="input-field col s3">
-                    <select name="color" ngModel>
-                      <option value="yellow">Amarillo</option>
-                      <option value="blue">Azul</option>
-                      <option value="red">Rojo</option>
-                    </select>
-                    <label>Seleccione un color</label>
-                  </div>
-                  <div class="col s3">
-                    <a class="waves-effect waves-light btn" (click)="addNodo('')"><i class="material-icons right">cloud</i>Add</a>
-                  </div>
+        <div>
+          <!--adicino de nodos -->
+          <fieldset>
+            <legend>Adicionar nodo</legend>
+            <div Group="nodes">
+              <div class="row">
+                <div class="input-field col s3">
+                  <input id="text" type="text" formControlName="text">
+                  <label for="text">Nombre del nodo</label>
+                </div>
+                <!--
+                <div class="input-field col s3 ">
+                  <input id="id" type="text" formControlName="id">
+                  <label for="id">Id del nodo</label>
+                </div>
+                -->
+                <div class="input-field col s3">
+                  <select id="color" formControlName="color">
+                    <option value="yellow">Amarillo</option>
+                    <option value="blue">Azul</option>
+                    <option value="red">Rojo</option>
+                  </select>
+                  <label>Seleccione un color</label>
+                </div>
+                <div class="col s3 right">
+                  <a class="waves-effect waves-light btn" type="button" (click)="addNodo()"><i
+                      class="material-icons right">panorama_fish_eye</i>Add</a>
                 </div>
               </div>
-
-              <div ngModelGroup = "edges">
+            </div>
+          </fieldset>
+          <!--adicino de aristas -->
+          <ng-container *ngIf="nodosData">
+            <fieldset>
+              <legend>Adicionar Arista</legend>
+              <div>
                 <div class="row">
-                  <div class="input-field col s3">
-                    <input name="key" type="text" class="validate" ngModel>
+                  <div class="input-field col s3 disabled">
+                    <input id="key" type="text" formControlName="key">
                     <label for="key">key edge</label>
                   </div>
                   <div class="input-field col s3">
-                    <input name="from" type="text" class="validate" ngModel>
+                    <input id="from" type="text" formControlName="from">
                     <label for="from">Del nodo </label>
                   </div>
                   <div class="input-field col s3">
-                    <input name="to" type="text" class="validate" ngModel>
+                    <input id="to" type="text" formControlName="to">
                     <label for="to">Hasta el nodo</label>
                   </div>
                   <div class="col s3">
-                    <a class="waves-effect waves-light btn" (click)="addEdge('')"><i class="material-icons right">cloud</i>Add</a>
+                    <a class="waves-effect waves-light btn" type="button" (click)="addEdge()"><i
+                        class="material-icons right">linear_scale</i>Add</a>
                   </div>
                 </div>
               </div>
-              <div>
-                <a class="waves-effect waves-light btn" (click)="addGrafo(formGrafo.value)"><i class="material-icons right">cloud</i>Enviar</a>
-              </div>
+            </fieldset>
+          </ng-container>
+          <div>
+            <button class="btn waves-effect waves-light" type="submit" name="action"
+              [disabled]="formGrafo.invalid">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </li>
+  <li>
+
+    <!--cargar grafo .json-->
+    <div class="collapsible-header"><i class="material-icons">backup</i>Cargar grafo</div>
+    <div class="collapsible-body">
+      <div>
+        <span>
+          cargue el archivo .json donde tenga la informacion de su grafo que
+          debe tener la siguiente estructura: <br>
+          _id : id del grafo <br>
+          nodes : object de nodos [] <br>
+          edges : object de aristas [] <br>
+          adjacencies : matriz de adjacencias <br>
+
+        </span>
+      </div>
+      <div>
+        <form action="#">
+          <div class="file-field input-field">
+            <div class="btn black">
+              <span>File</span>
+              <input type="file">
             </div>
-          </form>
-      </div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">place</i>Cargar grafo</div>
-      <div class="collapsible-body">
-        <div>
-          <span>
-            cargue el archivo .json donde tenga la informacion de su grafo que
-            debe tener la siguiente estructura: <br>
-            _id : id del grafo <br>
-            nodes : object de nodos [] <br>
-            edges : object de aristas [] <br>
-            adjacencies : matriz de adjacencias <br>
-
-          </span>
-        </div>
-        <div>
-          <form action="#">
-            <div class="file-field input-field">
-              <div class="btn black">
-                <span >File</span>
-                <input type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
             </div>
-          </form>
-
-        </div>
-
-      </div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">whatshot</i>Listar grafos</div>
-      <div class="collapsible-body">
-        <div>
-          <span>Ir a listar todos los grafos disponibles en la base de datos.</span>
-        </div>
-        <div>
-          <a class="waves-effect waves-light btn black" href="grafo-listar"><i class="material-icons right">cloud</i>Listar</a>
-        </div>
-
+          </div>
+        </form>
 
       </div>
-    </li>
-  </ul>
+
+    </div>
+  </li>
+  <li>
+    <!--listar grafo-->
+    <div class="collapsible-header"><i class="material-icons">view_list</i>Listar grafos</div>
+    <div class="collapsible-body">
+      <div>
+        <span>Ir a listar todos los grafos disponibles en la base de datos.</span>
+      </div>
+      <div>
+        <a class="waves-effect waves-light btn black" href="grafo-listar"><i
+            class="material-icons right">cloud</i>Listar</a>
+      </div>
 
 
-
-
-
-
-
-
-
+    </div>
+  </li>
+</ul>

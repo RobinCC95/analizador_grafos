@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GrafoViewComponent } from './grafo-view/grafo-view.component';
 import { GojsAngularModule } from 'gojs-angular';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { GrafoArchivoComponent } from './grafo-archivo/grafo-archivo.component';
 import { GrafoListarComponent } from './grafo-listar/grafo-listar.component';
 import { GrafoService } from './grafo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,9 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     BrowserModule,
-    FormsModule,
     GojsAngularModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
 
   ],
   providers: [GrafoService],

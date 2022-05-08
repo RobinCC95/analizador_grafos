@@ -1,6 +1,6 @@
 <ng-container *ngIf="grafoArray">
 <div>
-  <table>
+  <table class="responsive-table highlight">
     <thead>
       <tr>
           <th>id</th>
@@ -18,10 +18,10 @@
         <td>
           <div class="row">
             <div class="col s5">
-              <a class="waves-effect waves-light btn blue"  (click)="drawGrafo(grafo._id)"><i class="material-icons right">image_aspect_ratio</i>graficar</a>
+              <a class="waves-effect waves-light btn blue"  (click)="drawGrafo(grafo._id)"><i class="material-icons right">image_aspect_ratio</i>Draw</a>
             </div>
             <div class="col s5">
-              <a class="waves-effect waves-light btn red" (click)="deleteGrafo(grafo._id)"><i class="material-icons right">delete_forever</i>borrar</a>
+              <a class="waves-effect waves-light btn red" (click)="deleteGrafo(grafo._id)"><i class="material-icons right">delete_forever</i>Delete</a>
             </div>
           </div>
         </td>

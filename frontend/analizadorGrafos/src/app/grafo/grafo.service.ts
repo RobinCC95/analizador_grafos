@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { GrafoModel } from '../modelos/grafoModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,8 +21,8 @@ export class GrafoService {
    * @param grafo objeto grafo que se va a guardar en la base de datos
    * @returns envia el dato al servidor
    */
-  createGrafo(grafo: any): Observable<any> {
-    return this.http.post(`${this.BASE_URL}crear-grafo`, grafo);
+  createGrafo(grafo: GrafoModel): Observable<any> {
+    return this.http.post(`${this.BASE_URL}add-grafo`, grafo);
   }
 
   deleteGrafo(id: string): Observable<any> {
