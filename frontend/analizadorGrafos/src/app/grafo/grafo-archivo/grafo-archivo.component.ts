@@ -5,6 +5,8 @@ import { GrafoModel } from 'src/app/modelos/grafoModel';
 import { GrafoService } from '../grafo.service';
 import { debounceTime } from 'rxjs';
 import { NodoModel } from 'src/app/modelos/nodoModel';
+//para llamar js en ts de materialize
+declare var alertToast: any;
 
 @Component({
   selector: 'app-grafo-archivo',
@@ -14,7 +16,9 @@ import { NodoModel } from 'src/app/modelos/nodoModel';
 export class GrafoArchivoComponent implements OnInit {
   public archivos: any = [];
   validar = false;
+  //crea el object formulario
   formGrafo: FormGroup;
+  formFile : FormGroup;
 
   getLista(limSup: number) {
     let lista = [];
@@ -26,8 +30,12 @@ export class GrafoArchivoComponent implements OnInit {
   grafoTemp: GrafoModel;
   nodosData: NodoModel[];
   edgesData: Object[];
-  vec1: NodoModel[] = [{ id: 'uno', text: '1', color: 'black' }, { id: 'dos', text: '2', color: 'black' }];
+  //vec1: NodoModel[] = [{ id: 'uno', text: '1', color: 'black' }, { id: 'dos', text: '2', color: 'black' }];
+  dataJson: GrafoModel;
 
+  ngOnInit(): void {
+
+  }
   constructor(private formBuilder: FormBuilder, private grafoService: GrafoService, private router: Router) {
     this.BuildForm();
   }
@@ -42,10 +50,11 @@ export class GrafoArchivoComponent implements OnInit {
       to: []
 
     });
+    this.formFile = this.formBuilder.group({
+      file: ['', [Validators.required]]
+    });
   }
 
-  ngOnInit(): void {
-  }
 
   addNodo() {
     let text = this.formGrafo.get('text')!.value;
@@ -79,7 +88,7 @@ export class GrafoArchivoComponent implements OnInit {
       this.formGrafo.get('key')!.setValue('');
       //M.toast({html: 'I am a toast!'})
       console.log(this.edgesData);
-    } else alert('nodos no existentes');
+    } else alertToast('nodos no existentes');
   }
   addGrafo(event: Event) {
     //**validar datos formulario y crear grafoTemp */
@@ -107,21 +116,48 @@ export class GrafoArchivoComponent implements OnInit {
           });
         //router id
         this.router.navigate(['/grafo-listar']);
-      } else alert('grafo no valido');
+      } else alertToast('grafo no valido');
 
     }
     else {
-      alert('Favor dellenar todos los campos');
+      alertToast('Favor dellenar todos los campos');
     }
-
-
 
   }
 
-  capturarFile(event: any): any {
-    const archivoCapturado = event.target.files[0]
-    this.archivos.push(archivoCapturado)
-    console.log(archivoCapturado);
+
+  //TODO: validar archivo en la carga de datos
+
+  /**
+   * recepcion de datos del archivo
+   * @param event evento de file
+   */
+  datosFile(event: any): any{
+    let fileCaptur = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsText(fileCaptur);
+    reader.onload = (e) => {
+      let data = reader.result;
+      let dataS : string = data!.toString();
+
+      this.dataJson = JSON.parse(dataS);
+      //console.log(this.dataJson);
+    }
+  }
+
+  capturarFile(event: Event) {
+    event.preventDefault();
+    if (this.dataJson != null) {
+      //save grafo
+      this.grafoService.createGrafo(this.dataJson).subscribe(
+        (data: any) => {
+          console.log(data);
+        });
+      //router id
+      alertToast('Grafo cargado');
+      this.router.navigate(['/grafo-listar']);
+    } else alertToast('grafo no valido');
+
   }
 
 

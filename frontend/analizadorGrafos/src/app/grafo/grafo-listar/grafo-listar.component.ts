@@ -2,7 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { GrafoModel } from 'src/app/modelos/grafoModel';
 import { GrafoService } from '../grafo.service';
-
+//para llamar js en ts de materialize
+declare var alertToast: any;
 
 @Component({
   selector: 'app-grafo-listar',
@@ -27,6 +28,7 @@ export class GrafoListarComponent implements OnInit {
       },
       error => console.log(error)
     );
+    alertToast('Regargue la pagina para ver los cambios');
     /*
     this.grafoService.getGrafo("16534684").subscribe(
       data => {
