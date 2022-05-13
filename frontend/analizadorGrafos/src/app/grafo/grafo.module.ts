@@ -8,12 +8,14 @@ import { GrafoListarComponent } from './grafo-listar/grafo-listar.component';
 import { GrafoService } from './grafo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GrafoAnalizarComponent } from './grafo-analizar/grafo-analizar.component';
 
 @NgModule({
   declarations: [
     GrafoViewComponent,
     GrafoArchivoComponent,
-    GrafoListarComponent
+    GrafoListarComponent,
+    GrafoAnalizarComponent
   ],
   imports: [
     CommonModule,

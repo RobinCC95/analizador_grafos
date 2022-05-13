@@ -7,7 +7,7 @@ import { debounceTime } from 'rxjs';
 import { NodoModel } from 'src/app/modelos/nodoModel';
 //para llamar js en ts de materialize
 declare var alertToast: any;
-
+declare var mostrarModal: any;
 @Component({
   selector: 'app-grafo-archivo',
   templateUrl: './grafo-archivo.component.html',
