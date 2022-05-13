@@ -18,7 +18,7 @@ export class GrafoArchivoComponent implements OnInit {
   validar = false;
   //crea el object formulario
   formGrafo: FormGroup;
-  formFile : FormGroup;
+  formFile: FormGroup;
 
   getLista(limSup: number) {
     let lista = [];
@@ -34,6 +34,9 @@ export class GrafoArchivoComponent implements OnInit {
   dataJson: GrafoModel;
 
   ngOnInit(): void {
+    for(let i = 0; i < 10; i++){
+      console.log(this.generarIdUnico());
+    }
 
   }
   constructor(private formBuilder: FormBuilder, private grafoService: GrafoService, private router: Router) {
@@ -90,6 +93,7 @@ export class GrafoArchivoComponent implements OnInit {
       console.log(this.edgesData);
     } else alertToast('nodos no existentes');
   }
+
   addGrafo(event: Event) {
     //**validar datos formulario y crear grafoTemp */
     event.preventDefault();
@@ -132,13 +136,13 @@ export class GrafoArchivoComponent implements OnInit {
    * recepcion de datos del archivo
    * @param event evento de file
    */
-  datosFile(event: any): any{
+  datosFile(event: any): any {
     let fileCaptur = event.target.files[0];
     let reader = new FileReader();
     reader.readAsText(fileCaptur);
     reader.onload = (e) => {
       let data = reader.result;
-      let dataS : string = data!.toString();
+      let dataS: string = data!.toString();
 
       this.dataJson = JSON.parse(dataS);
       //console.log(this.dataJson);
@@ -158,6 +162,19 @@ export class GrafoArchivoComponent implements OnInit {
       this.router.navigate(['/grafo-listar']);
     } else alertToast('grafo no valido');
 
+  }
+  /**
+   * generar id unico para el grafo
+   */
+  generarIdUnico() {
+    let ahora = new Date().getTime();
+    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      let r = (ahora + Math.random() * 16) % 16 | 0;
+      ahora = Math.floor(ahora / 16);
+      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    }
+    );
+    return uuid;
   }
 
 
