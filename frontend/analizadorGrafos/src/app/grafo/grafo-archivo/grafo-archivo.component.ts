@@ -5,6 +5,7 @@ import { GrafoModel } from 'src/app/modelos/grafoModel';
 import { GrafoService } from '../grafo.service';
 import { debounceTime } from 'rxjs';
 import { NodoModel } from 'src/app/modelos/nodoModel';
+import { EdgeModel } from 'src/app/modelos/edgeModel';
 //para llamar js en ts de materialize
 declare var alertToast: any;
 declare var mostrarModal: any;
@@ -29,7 +30,7 @@ export class GrafoArchivoComponent implements OnInit {
   }
   grafoTemp: GrafoModel;
   nodosData: NodoModel[];
-  edgesData: Object[];
+  edgesData: EdgeModel[];
   //vec1: NodoModel[] = [{ id: 'uno', text: '1', color: 'black' }, { id: 'dos', text: '2', color: 'black' }];
   dataJson: GrafoModel;
 
@@ -55,42 +56,81 @@ export class GrafoArchivoComponent implements OnInit {
     });
   }
 
-
+  /**
+   * adiciona a la lista de nodos los datos del formulario
+   */
   addNodo() {
     let text = this.formGrafo.get('text')!.value;
     let color = this.formGrafo.get('color')!.value;
     let id = text;
+    if (color == null) color = 'orange';
     let nodo = { id: id, text: text, color: color };
-    if (this.nodosData == null) this.nodosData = [nodo];
-    else this.nodosData.push(nodo);
-    this.formGrafo.get('text')!.setValue('');
-    this.formGrafo.get('color')!.setValue('');
-    console.log(this.nodosData);
+    if (this.siExisteNodo(id) == false) {
+      if (this.nodosData == null) this.nodosData = [nodo];
+      else this.nodosData.push(nodo);
+    } else {
+      alertToast('nodo ya existente')
+      this.formGrafo.get('text')!.setValue('');
+      this.formGrafo.get('color')!.setValue('');
+      console.log(this.nodosData);
+    }
   }
+  /**
+   * buscar en la lista de nodos si existe el nodo
+   * @param id recibe el id del nodo a buscar
+   * @returns devuelve true si existe el nodo, false si no existe
+   */
   siExisteNodo(id: string) {
-    for (let nodo in this.nodosData) {
-      if (this.nodosData[nodo].id == id) {
-        return true;
+    if (this.nodosData != null) {
+      for (let nodo in this.nodosData) {
+        if (this.nodosData[nodo].id == id) {
+          return true;
+        }
       }
     }
     return false;
   }
+  /**
+   *  valida si se ingreso una key existente en las edges
+   * @returns devuelve true si existe, false si no existe
+   **/
+  siExisteEdge(key: string) {
+    if (this.edgesData != null) {
+      for (let edge in this.edgesData) {
+        if (this.edgesData[edge].key == key) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * adicina a la lista de edges los datos del formulario
+   */
   addEdge() {
     let from = this.formGrafo.get('from')!.value;
     let to = this.formGrafo.get('to')!.value;
     let key = this.formGrafo.get('key')!.value;
     let edge = { from: from, to: to, key: key };
-    if (this.siExisteNodo(from) && this.siExisteNodo(to)) {
-      if (this.edgesData == null) this.edgesData = [edge];
-      else this.edgesData.push(edge);
-      this.formGrafo.get('from')!.setValue('');
-      this.formGrafo.get('to')!.setValue('');
-      this.formGrafo.get('key')!.setValue('');
-      //M.toast({html: 'I am a toast!'})
-      console.log(this.edgesData);
-    } else alertToast('nodos no existentes');
+    if (this.siExisteEdge(key) == false) {
+      if (this.siExisteNodo(from) && this.siExisteNodo(to)) {
+        if (this.edgesData == null) this.edgesData = [edge];
+        else {
+          this.edgesData.push(edge)
+          this.formGrafo.get('from')!.setValue('');
+          this.formGrafo.get('to')!.setValue('');
+          this.formGrafo.get('key')!.setValue('');
+          console.log(this.edgesData);
+        }
+      } else alertToast('nodos no existentes');
+    } else alertToast('edge con key ya existente');
   }
-
+  /**
+   * formulario para crear el grafo y enviarlo a la base de datos.
+   * Este nos redirecciona a la lista de grafos
+   * @param event
+   */
   addGrafo(event: Event) {
     //**validar datos formulario y crear grafoTemp */
     event.preventDefault();
