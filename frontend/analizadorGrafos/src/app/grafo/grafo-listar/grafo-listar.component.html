@@ -3,7 +3,7 @@
   <table class="responsive-table highlight">
     <thead>
       <tr>
-          <th>id</th>
+          <th>Nombre</th>
           <th>N. Nodos</th>
           <th>N. Aristas </th>
           <th>Opcion</th>
@@ -12,7 +12,7 @@
 
     <tbody>
       <tr *ngFor="let grafo of grafoArray" >
-        <td> {{grafo._id}}</td>
+        <td> {{grafo.name}}</td>
         <td>{{grafo.nodes.length}}</td>
         <td>{{grafo.edges.length}}</td>
         <td>

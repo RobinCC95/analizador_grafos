@@ -1,6 +1,6 @@
 export class GrafoModel {
   _id: string;
-  user: object;
+  name: string;
   nodes: Array<object>;
   edges: Array<object>;
   adjacencies: Array<object>;

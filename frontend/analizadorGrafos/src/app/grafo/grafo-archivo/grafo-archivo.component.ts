@@ -34,9 +34,6 @@ export class GrafoArchivoComponent implements OnInit {
   dataJson: GrafoModel;
 
   ngOnInit(): void {
-    for(let i = 0; i < 10; i++){
-      console.log(this.generarIdUnico());
-    }
 
   }
   constructor(private formBuilder: FormBuilder, private grafoService: GrafoService, private router: Router) {
@@ -44,7 +41,7 @@ export class GrafoArchivoComponent implements OnInit {
   }
   private BuildForm() {
     this.formGrafo = this.formBuilder.group({
-      _id: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       //id: [],
       text: [],
       color: [],
@@ -98,15 +95,11 @@ export class GrafoArchivoComponent implements OnInit {
     //**validar datos formulario y crear grafoTemp */
     event.preventDefault();
     if (this.formGrafo.valid && this.nodosData != null && this.edgesData != null) {
-      let _id = this.formGrafo.get('_id')!.value;
+      let name = this.formGrafo.get('name')!.value;
       let adjacencies = [{}];
-      let user = {
-        idUser: '1',
-        name: 'robin',
-      };
       this.grafoTemp = {
-        _id: _id,
-        user: user,
+        _id: this.generarIdUnico(),
+        name: name,
         nodes: this.nodosData,
         edges: this.edgesData,
         adjacencies: adjacencies

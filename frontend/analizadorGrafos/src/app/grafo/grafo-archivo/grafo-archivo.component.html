@@ -7,8 +7,8 @@
       <form [formGroup]="formGrafo" (ngSubmit)="addGrafo($event)">
         <div class="row">
           <div class="input-field col s4">
-            <input id="_id" type="text" formControlName="_id">
-            <label for="_id">Id grafo</label>
+            <input id="name" type="text" formControlName="name">
+            <label for="name">Nombre del grafo</label>
           </div>
         </div>
 
@@ -99,7 +99,7 @@
         <span>
           cargue el archivo .json donde tenga la informacion de su grafo que
           debe tener la siguiente estructura: <br>
-          _id : id del grafo <br>
+          name : id del grafo <br>
           nodes : object de nodos [] <br>
           edges : object de aristas [] <br>
           adjacencies : matriz de adjacencias <br>
