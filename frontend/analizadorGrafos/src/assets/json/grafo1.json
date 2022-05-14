@@ -1,9 +1,6 @@
 {
-  "_id" : "9721",
-  "user" : {
-      "userId" : 123,
-      "name" : "carlos"
-  },
+  "_id" : "1222222",
+  "name" : "grafo carga json",
   "nodes" : [
       {
           "id" : "Alpha",

@@ -1,70 +1,22 @@
 <ng-container *ngIf="state">
-
-<div class="left">
-  Palette
-  <gojs-palette #myPalette [initPalette]='initPalette' [divClassName]='paletteDivClassName' [nodeDataArray]='state.paletteNodeData'
-     [modelData]='state.paletteModelData'></gojs-palette>
-</div>
-
-<div class="left">
-  Diagram
-  <gojs-diagram #myDiagram [initDiagram]='initDiagram' [nodeDataArray]='state.diagramNodeData' [linkDataArray]='state.diagramLinkData'
-    [divClassName]='diagramDivClassName' [modelData]='state.diagramModelData'
-    (modelChange)='diagramModelChange($event)'>
-  </gojs-diagram>
-</div>
-
-
-<!--    ERROR CREAR INTERFACE PARA USAR .atributo
-<div class="clear left box">
-  <h3>Links in app data</h3>
-  <ul>
-    <li *ngFor="let ld of state.diagramLinkData">
-      Link Key: {{ld.key}}, To: {{ld.to}}, From: {{ ld.from }}
-    </li>
-  </ul>
-</div>
-
-<div class="left box">
-  <h3>Nodes in app data</h3>
-  <ul>
-    <li *ngFor="let nd of state.diagramNodeData">
-      Node ID: {{nd.id}}, Text: {{nd.text}}, Color: {{nd.color}}, Loc: {{nd.loc}}
-    </li>
-  </ul>
-</div>
--->
-
-
-
-
-<!--
-<button id="btnClear" (click)="reinitModel()">clear</button>
-<div class="row">
-  <div class="col s7">
-    <gojs-diagram
-      [initDiagram]='initDiagram'
-      [nodeDataArray]='getNodoData()'
-      [linkDataArray]='getEdgesData()'
-      [modelData]='state.diagramModelData'
-      [skipsDiagramUpdate]='state.skipsDiagramUpdate'
-      (modelChange)='diagramModelChange($event)'
-      [divClassName]='diagramDivClassName'>
-    </gojs-diagram>
-
+  <div class="row">
+    <div class="col s5">
+      Diagram
+      <gojs-diagram #myDiagram [initDiagram]='initDiagram' [nodeDataArray]='state.diagramNodeData'
+        [linkDataArray]='state.diagramLinkData' [divClassName]='diagramDivClassName'
+        [modelData]='state.diagramModelData' (modelChange)='diagramModelChange($event)'>
+      </gojs-diagram>
+    </div>
+    <div class="col s3">
+      Palette
+      <gojs-palette #myPalette [initPalette]='initPalette' [divClassName]='paletteDivClassName'
+        [nodeDataArray]='state.paletteNodeData' [modelData]='state.paletteModelData'></gojs-palette>
+    </div>
+    <div class="col s2">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
   </div>
-  <div class="col s5">
-    <gojs-palette
-      [initPalette]='initPalette'
-      [nodeDataArray]='state.paletteNodeData'
-      [divClassName]='paletteDivClassName'>
-    </gojs-palette>
-
-</div>
--->
-
-
-
 </ng-container>
-
 

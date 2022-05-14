@@ -31,7 +31,6 @@ export class GrafoArchivoComponent implements OnInit {
   grafoTemp: GrafoModel;
   nodosData: NodoModel[];
   edgesData: EdgeModel[];
-  //vec1: NodoModel[] = [{ id: 'uno', text: '1', color: 'black' }, { id: 'dos', text: '2', color: 'black' }];
   dataJson: GrafoModel;
 
   ngOnInit(): void {

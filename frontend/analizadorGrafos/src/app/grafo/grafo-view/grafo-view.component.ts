@@ -142,7 +142,7 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
 
   // When the diagram model changes, update app data to reflect those changes. Be sure to use immer's "produce" function to preserve immutability
   public diagramModelChange = function(changes: go.IncrementalData) {
-    console.log('diagramModelChange');
+    console.log(changes);
     if (!changes) return;
 
     /*const appComp = this;
