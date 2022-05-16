@@ -22,7 +22,7 @@ export class GrafoViewComponent implements OnInit {
   idGrafoDefect = "";
 
 
-constructor(private router: Router, private routerAct : ActivatedRoute ,private grafoService : GrafoService, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private routerAct: ActivatedRoute, private grafoService: GrafoService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.routerAct.paramMap.subscribe(params => {
@@ -40,9 +40,22 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
         );
       }
     });
+    //console.log(this.state)
 
+  }
 
-}
+  saveGrafo() {
+    console.log(this.state)
+    //TODO: actualizar grafo en la BD, pero debo validar si existe de lo contrario crearlo
+    let existeGrafo = false;
+    if (existeGrafo) {
+
+    }
+    else {
+
+    }
+
+  }
 
 
   public state = {
@@ -60,7 +73,7 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
       { key: -3, from: 'Beta', to: 'Beta' },
       { key: -4, from: 'Gamma', to: 'Delta', fromPort: 'r', toPort: 'l' },
       { key: -5, from: 'Delta', to: 'Alpha', fromPort: 't', toPort: 'r' }
-  ],
+    ],
     diagramModelData: { prop: 'value' },
     skipsDiagramUpdate: false,
     selectedNodeData: null, // used by InspectorComponent
@@ -94,7 +107,7 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
 
     dia.commandHandler.archetypeGroupData = { key: 'Group', isGroup: true };
 
-    const makePort = function(id: string, spot: go.Spot) {
+    const makePort = function (id: string, spot: go.Spot) {
       return $(go.Shape, 'Circle',
         {
           opacity: .5,
@@ -113,8 +126,8 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
             $('ContextMenu',
               $('ContextMenuButton',
                 $(go.TextBlock, 'Group'),
-                { click: function(e, obj) { e.diagram.commandHandler.groupSelection(); } },
-                new go.Binding('visible', '', function(o) {
+                { click: function (e, obj) { e.diagram.commandHandler.groupSelection(); } },
+                new go.Binding('visible', '', function (o) {
                   return o.diagram.selection.count > 1;
                 }).ofObject())
             )
@@ -140,31 +153,49 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
     return dia;
   }
 
-  // When the diagram model changes, update app data to reflect those changes. Be sure to use immer's "produce" function to preserve immutability
-  public diagramModelChange = function(changes: go.IncrementalData) {
-    console.log(changes);
-    if (!changes) return;
+  insertNode() {
+    console.log('insertNode');
+  }
+  insertEdge() {
+    console.log('insertEdge');
+  }
+  modifiedNode() {
+    console.log('modificadNode');
+  }
+  modifiedEdge() {
+    console.log('modificadEdge');
+  }
+  removeNode() {
+    console.log('removeNode');
+  }
+  removeEdge() {
+    console.log('removeEdge');
+  }
 
-    /*const appComp = this;
-    this.state = produce(this.state, draft => {
-      // set skipsDiagramUpdate: true since GoJS already has this update
-      // this way, we don't log an unneeded transaction in the Diagram's undoManager history
-      draft.skipsDiagramUpdate = true;
-      draft.diagramNodeData = DataSyncService.syncNodeData(changes, draft.diagramNodeData, appComp.observedDiagram.model);
-      draft.diagramLinkData = DataSyncService.syncLinkData(changes, draft.diagramLinkData, appComp.observedDiagram.model);
-      draft.diagramModelData = DataSyncService.syncModelData(changes, draft.diagramModelData);
-      // If one of the modified nodes was the selected node used by the inspector, update the inspector selectedNodeData object
-      const modifiedNodeDatas = changes.modifiedNodeData;
-      if (modifiedNodeDatas && draft.selectedNodeData) {
-        for (let i = 0; i < modifiedNodeDatas.length; i++) {
-          const mn = modifiedNodeDatas[i];
-          const nodeKeyProperty = appComp.myDiagramComponent.diagram.model.nodeKeyProperty as string;
-          if (mn[nodeKeyProperty] === draft.selectedNodeData[nodeKeyProperty]) {
-            draft.selectedNodeData = mn;
-          }
-        }
-      }
-    });*/
+  // When the diagram model changes, update app data to reflect those changes. Be sure to use immer's "produce" function to preserve immutability
+  public diagramModelChange = (changes: go.IncrementalData) => {
+    //TODO: hacer metodos de add, delete, update al this.state y enviar a la BD
+    if (changes.insertedNodeKeys) {
+      this.insertNode()
+    }
+    else if (changes.insertedLinkKeys) {
+      this.insertEdge()
+    }
+    else if (changes.modifiedNodeData) {
+      this.modifiedNode();
+    }
+    else if (changes.modifiedLinkData) {
+      this.modifiedEdge();
+    }
+    else if (changes.removedNodeKeys) {
+      this.removeNode();
+    }
+    else if (changes.removedLinkKeys) {
+      this.removeEdge();
+    }
+    else {
+      console.log('ninguno');
+    }
   };
 
   public initPalette(): go.Palette {
@@ -201,7 +232,7 @@ constructor(private router: Router, private routerAct : ActivatedRoute ,private 
   public observedDiagram = null;
 
   // currently selected node; for inspector
-  public selectedNodeData: go.ObjectData ;
+  public selectedNodeData: go.ObjectData;
 
   /*public ngAfterViewInit() {
     if (this.observedDiagram) return;
