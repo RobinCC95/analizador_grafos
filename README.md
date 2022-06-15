@@ -8,14 +8,14 @@ Debe tener instalado estas dependencias para la ejecucion del proyecto
 
 Despues de ello siga las indicaciones de abajo para ejecutar el backend y frontend para su correcto funcionamiento.
 
-![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281739851_5314133481980684_248468699038476265_n.jpg?_nc_cat=102&ccb=1-6&_nc_sid=0debeb&_nc_eui2=AeEx3nXmMdqLkunP3ZZArSJAAD8pmbppUDwAPymZumlQPCJpllsbYbprPyZYH-k-SxE-jVWpzyc0hKELgSWMhMYo&_nc_ohc=1CYUyoHOo38AX9B7BEk&_nc_ht=scontent.feoh4-3.fna&oh=00_AT_K6Pbmrvva2j4r1UiOzxfTvVteJVZZtAz1VyytMV7L_w&oe=6287B3C3)
+![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281858921_5314154861978546_6167332467487085534_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0debeb&_nc_eui2=AeHOXfYaNxdq99gUnFVbDUk-Z9QxlsJc9rtn1DGWwlz2uyaAaQY5tOAbFkAWLVem-NRR-nlRe6G_9Iv7GsK5TfkC&_nc_ohc=M3Ga5QVXJsUAX90Ehu0&_nc_oc=AQlc4Z6ygdc43d3sZHEgbtbbMWMkud5yA9qNOK3zh7gRL4u9HgRuD59J_TRrVkX7_zc&_nc_ht=scontent.feoh4-3.fna&oh=00_AT8CpKsI5Jt5rxO_1-dagNXvLR7-y4MpQZyJlEu0IVh7qg&oe=62AF609A)
 
 ------------
 
 
 ### Backend
 Backend implementado con flask como servidor y mongoDB-atlas como base de datos.
-![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281903886_5314145638646135_2276786267673613151_n.jpg?_nc_cat=102&ccb=1-6&_nc_sid=0debeb&_nc_eui2=AeECw7m6meRoUTPnxUK5sIfg_xWN_8Vy-Ln_FY3_xXL4uXc7zkC__xKussiQ12UKzfVF1lgWqlFTXkOxqYPF3NHu&_nc_ohc=FT0JeT5s5OEAX9xV7c4&_nc_ht=scontent.feoh4-3.fna&oh=00_AT9CjXcYLjIWlrDzGyWB6HZ2TLESrs2RJr6kakZ1hBZLHw&oe=628767C7)
+![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281903886_5314145638646135_2276786267673613151_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=0debeb&_nc_eui2=AeECw7m6meRoUTPnxUK5sIfg_xWN_8Vy-Ln_FY3_xXL4uXc7zkC__xKussiQ12UKzfVF1lgWqlFTXkOxqYPF3NHu&_nc_ohc=YEuL6XD6xRYAX9wEsiH&_nc_ht=scontent.feoh4-3.fna&oh=00_AT-mEKfh6MlWofGpkFWOzID2wtUwOaB-oihXLeEZFbJlJA&oe=62AEF4C7)
 ######   Pasos para la instalacion:
 Ubicarse en la carpeta raiz, ingrese en las subcarpetas en la siguiente direccion "backend\Grafo_Optim".
 - Cree un ambiente virutal. Nesecita las siguientes librerias para hacerlo.
@@ -45,4 +45,4 @@ Toda la parte grafica de la aplicacion desarrollada en angular que consume los r
 - Ejecutar el comando *ng serve *
 - Dirigase a su navegador y escriba la url http://localhost:4200 
 
-![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281501904_5314154845311881_5209382441929272854_n.jpg?_nc_cat=100&ccb=1-6&_nc_sid=0debeb&_nc_eui2=AeFdbdOcEC0QZwRyfyp_oCPPg--1WZ6Q-fGD77VZnpD58Yi1YZ65eyidXMWDbvtIexZ0G8ZAYU5K0MB3NgqT2Snu&_nc_ohc=OwkcE6meNDQAX8Hd0dK&_nc_oc=AQk9jiJtzVgnWAS0N7LeezcdLbG5nAiD0ULnhMi-Z7uhMUZFdcMo0bALEWausQhZv_s&_nc_ht=scontent.feoh4-3.fna&oh=00_AT8obt6id9oTpcTsm9wDD8qpbZzCzGLi9kYzwYzSFuYYqA&oe=6288D306)
+![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281501904_5314154845311881_5209382441929272854_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0debeb&_nc_eui2=AeFdbdOcEC0QZwRyfyp_oCPPg--1WZ6Q-fGD77VZnpD58Yi1YZ65eyidXMWDbvtIexZ0G8ZAYU5K0MB3NgqT2Snu&_nc_ohc=NyVRbh6np7oAX8V30uV&_nc_oc=AQk5QJiyH0Jqnf2DYoPfKa2kijNW13K4OWWE5U6twNsG19mv--W43yJS4C_PEkfO3ms&_nc_ht=scontent.feoh4-3.fna&oh=00_AT-i_RbauRn_38Gg9KCIahlt6eC5Y6_s-lWi_sm--4exOw&oe=62AE65C6)
