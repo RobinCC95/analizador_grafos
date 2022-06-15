@@ -38,7 +38,7 @@ Ubicarse en la carpeta raiz, ingrese en las subcarpetas en la siguiente direccio
 
 ### Frontend
 Toda la parte grafica de la aplicacion desarrollada en angular que consume los recursos de una API en flask conectada a una BD en MongoDB.
-![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281858921_5314154861978546_6167332467487085534_n.jpg?_nc_cat=100&ccb=1-6&_nc_sid=0debeb&_nc_eui2=AeHOXfYaNxdq99gUnFVbDUk-Z9QxlsJc9rtn1DGWwlz2uyaAaQY5tOAbFkAWLVem-NRR-nlRe6G_9Iv7GsK5TfkC&_nc_ohc=6sQXjcSxrzAAX_dbxgu&_nc_oc=AQkpYTE1gs1nFIh_CO9fcydxh_GAmu_Iv8SixJBWhNvr-uomSdUkl9G0jmQznL8uWQw&_nc_ht=scontent.feoh4-3.fna&oh=00_AT-DkkkrMCV2tcDr40UWuL6xux7YdEnFk-wmzrTsWxlmSw&oe=6287D39A)
+![](https://scontent.feoh4-3.fna.fbcdn.net/v/t39.30808-6/281739851_5314133481980684_248468699038476265_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=0debeb&_nc_eui2=AeEx3nXmMdqLkunP3ZZArSJAAD8pmbppUDwAPymZumlQPCJpllsbYbprPyZYH-k-SxE-jVWpzyc0hKELgSWMhMYo&_nc_ohc=E4_8IoOXW8IAX-hDVgf&_nc_ht=scontent.feoh4-3.fna&oh=00_AT_Def7SGgSHOKoEJIPjEXniiaj0pK3DAKTqm9Z11K6-bA&oe=62AF40C3)
 ###### Pasos para la instalacion:
 - Al ubicarse en la carpeta raiz, ingrese en las subcarpetas en la siguiente direccion 			"frontend\analizadorGrafos"
 - Ejecutar el comando *npm install* para instalacion de las librerias
