@@ -1,1 +1,43 @@
-<p>grafo-analizar works!</p>
+
+<div>
+  <div><h1>Analisis del grafo</h1></div>
+
+  <form [formGroup]="formAnalisis" (ngSubmit)="envioPetAnalisis($event)">
+
+    <fieldset>
+      <legend>Configuracion analisis</legend>
+      <div Group="grafo">
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="id" type="id" formControlName="id">
+            <label for="id">id grafo</label>
+          </div>
+
+          <div class="input-field col s3">
+            <select id="particion" formControlName="particion">
+              <option value="Modular">Modular</option>
+              <option value="Aproximado">Aproximado</option>
+              <option value="Voraz">Voraz</option>
+            </select>
+            <label>Seleccione tipo algoritmo</label>
+          </div>
+
+        </div>
+      </div>
+    </fieldset>
+    <div>
+      <button class="btn waves-effect waves-light" type="submit" name="action"
+        [disabled]="formAnalisis.invalid">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+
+  <div>
+
+  </div>
+
+
+</div>
+
+
