@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataAnalisis } from 'src/app/modelos/dataAnalisis';
 import { GrafoService } from '../grafo.service';
 
 declare var alertToast: any;
@@ -29,14 +30,14 @@ export class GrafoAnalizarComponent implements OnInit {
   }
 
   envioPetAnalisis(event : Event) {
-    let dataAnali = {
+    let dataAnali : DataAnalisis = {
       id: this.formAnalisis.value.id,
       particion: this.formAnalisis.value.particion
     };
     event.preventDefault();
     if(this.formAnalisis.valid){
       // TODO: Peticion al servidor del analisis de grafo
-     /* this.grafoService.analizarGrafo(dataAnali).subscribe(
+     /*this.grafoService.analizarGrafo(dataAnali).subscribe(
         (data: any) => {
           console.log(data);
         });*/

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GrafoModel } from '../modelos/grafoModel';
+import { DataAnalisis } from '../modelos/dataAnalisis';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,5 +32,13 @@ export class GrafoService {
 
   getGrafo(id: string): Observable<any> {
     return this.http.get(`${this.BASE_URL}get-grafo/${id}`);
+  }
+
+  updateGrafo(grafo: GrafoModel): Observable<any> {
+    return this.http.put(`${this.BASE_URL}update-grafo`, grafo);
+  }
+
+  analizarGrafo(id: DataAnalisis): Observable<any> {
+    return this.http.get(`${this.BASE_URL}analizar-grafo/${id}`);
   }
 }
