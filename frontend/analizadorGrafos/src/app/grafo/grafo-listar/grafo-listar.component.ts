@@ -12,12 +12,12 @@ declare var alertToast: any;
 })
 
 export class GrafoListarComponent implements OnInit {
-  public grafoArray : GrafoModel[];
+  public grafoArray: GrafoModel[];
   nodes: object = [];
   edges: object = [];
   validar = false;
 
-  constructor(private grafoService: GrafoService, private router : Router) { }
+  constructor(private grafoService: GrafoService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -38,12 +38,12 @@ export class GrafoListarComponent implements OnInit {
     );*/
 
   }
-  drawGrafo(grafoId:string){
+  drawGrafo(grafoId: string) {
     console.log(grafoId);
-    this.router.navigate(['/grafo-view',grafoId]);
+    this.router.navigate(['/grafo-view', grafoId]);
 
   }
-  deleteGrafo(grafoId:string){
+  deleteGrafo(grafoId: string) {
     console.log(grafoId);
     this.grafoService.deleteGrafo(grafoId).subscribe(
       data => {
@@ -54,8 +54,16 @@ export class GrafoListarComponent implements OnInit {
 
   }
 
-
-
-
+  analizarGrafo(grafoID: string) {
+    console.log(grafoID);
+    this.grafoService.analizarGrafo(grafoID).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => console.log(error)
+    );
+    //TODO: Hacer retardo y validacion para ir a la pagina editar
+    this.router.navigate(['/grafo-analizar', grafoID]);
+  }
 
 }

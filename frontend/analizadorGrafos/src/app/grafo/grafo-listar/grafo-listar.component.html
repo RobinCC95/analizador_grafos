@@ -1,33 +1,63 @@
 <ng-container *ngIf="grafoArray">
-<div>
-  <table class="responsive-table highlight">
-    <thead>
-      <tr>
-          <th>Nombre</th>
-          <th>N. Nodos</th>
-          <th>N. Aristas </th>
-          <th>Opcion</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let grafo of grafoArray" >
-        <td> {{grafo.name}}</td>
-        <td>{{grafo.nodes.length}}</td>
-        <td>{{grafo.edges.length}}</td>
-        <td>
+  <div>
+    <table class="responsive-table highlight">
+      <thead>
+        <tr>
           <div class="row">
-            <div class="col s5">
-              <a class="waves-effect waves-light btn blue"  (click)="drawGrafo(grafo._id)"><i class="material-icons right">image_aspect_ratio</i>Draw</a>
+            <div class="col s3">
+              <th>Nombre</th>
+            </div>
+            <div class="col s2">
+              <th>N. Nodos</th>
+            </div>
+            <div class="col s2">
+              <th>N. Aristas </th>
             </div>
             <div class="col s5">
-              <a class="waves-effect waves-light btn red" (click)="deleteGrafo(grafo._id)"><i class="material-icons right">delete_forever</i>Delete</a>
+              <th>Opcion</th>
             </div>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+
+
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let grafo of grafoArray">
+          <div class="row">
+            <div class="col s3">
+              <td> {{grafo.name}}</td>
+            </div>
+            <div class="col s2">
+              <td>{{grafo.nodes.length}}</td>
+            </div>
+            <div class="col s2">
+              <td>{{grafo.edges.length}}</td>
+            </div>
+            <div class="col s5">
+              <td>
+                <div class="row">
+                  <div class="col s4">
+                    <a class="waves-effect waves-light btn blue" (click)="drawGrafo(grafo._id)"><i
+                        class="material-icons right">image_aspect_ratio</i>Draw</a>
+                  </div>
+                  <div class="col s4">
+                    <a class="waves-effect waves-light btn red" (click)="analizarGrafo(grafo._id)"><i
+                        class="material-icons right">border_bottom</i>Analizar</a>
+                  </div>
+                  <div class="col s4">
+                    <a class="waves-effect waves-light btn red" (click)="deleteGrafo(grafo._id)"><i
+                        class="material-icons right">delete_forever</i>Delete</a>
+                  </div>
+                </div>
+              </td>
+            </div>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </ng-container>
