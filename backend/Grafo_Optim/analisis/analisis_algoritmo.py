@@ -1,5 +1,5 @@
-from particion_modular import ParticionModular
-from particion_aproximada import ParticionAproximada
+from .particion_modular import ParticionModular
+from .particion_aproximada import ParticionAproximada
 
 class Analisis_Algoritmo:
     def __init__(self, grafo, particion):
