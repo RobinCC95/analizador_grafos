@@ -1,11 +1,14 @@
 
 #from pymongo import MongoClient
+
 from flask import Flask, jsonify, request
 import json 
 import datetime
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
+
+from analisis.analisis_algoritmo import Analisis_Algoritmo
 
 #estrutura de dados
 grafo_struct = {
@@ -86,6 +89,19 @@ def before_request():
 def after_request(response):
 	print("Despues de la peticion...")
 	return response
+
+@app.route('/grafos/analizar-grafo', methods=['POST'])
+def analizar_grafo():
+    if request.method == 'POST':
+        print("Analizando grafo...")
+        #TODO: analizar grafo, guardar en MongoDB y retornar el nombre del grafo
+        id = request.json['id']
+        grafo = mongo.db.grafo_registro.find_one({"_id": id})
+        particion = request.json['particion']
+        analisis = Analisis_Algoritmo(grafo, particion)
+        grafo_particion = analisis.get_grafo_particion()
+        id = mongo.db.grafo_particion.insert_one(grafo_particion)
+        return jsonify({'transaccion': True, "data":str(id)})
 
 @app.route('/grafos/add-grafo', methods=['POST'])
 def create_grafo():
