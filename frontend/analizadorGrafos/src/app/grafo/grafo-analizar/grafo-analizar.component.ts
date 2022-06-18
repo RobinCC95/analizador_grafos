@@ -31,7 +31,7 @@ export class GrafoAnalizarComponent implements OnInit {
 
   envioPetAnalisis(event : Event) {
     let dataAnali : DataAnalisis = {
-      id: this.formAnalisis.value.id,
+      grafo: this.formAnalisis.value.id,
       particion: this.formAnalisis.value.particion
     };
     event.preventDefault();

@@ -44,6 +44,21 @@ export class GrafoListarComponent implements OnInit {
     this.router.navigate(['/grafo-view', grafoId]);
 
   }
+  /**
+   * funcion que busca el grafo en el array de grafos
+   * @param grafoID id del grafo a buscar
+   * @returns retorna el grafo encontrado o null si no lo encuentra
+   */
+  buscarGrafo(grafoID: string) {
+    let grafo: GrafoModel | null = null;
+    for (let i = 0; i < this.grafoArray.length; i++) {
+      if (this.grafoArray[i]._id == grafoID) {
+        grafo = this.grafoArray[i];
+        return this.grafoArray[i];
+      }
+    }
+    return grafo;
+  }
   deleteGrafo(grafoId: string) {
     console.log(grafoId);
     this.grafoService.deleteGrafo(grafoId).subscribe(
@@ -55,19 +70,20 @@ export class GrafoListarComponent implements OnInit {
 
   }
   analizarGrafo(grafoID: string) {
+    let grafo : GrafoModel | null = this.buscarGrafo(grafoID);
     let tipPart = document.getElementById('tipo-particion') as HTMLInputElement;
     let tipParticion = tipPart.value;
     let dataPart: DataAnalisis = {
-      id: grafoID,
+      grafo: grafo,
       particion: tipParticion
     }
     console.log(dataPart);
-    this.grafoService.analizarGrafo(dataPart).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => console.log(error)
-    );
+    // this.grafoService.analizarGrafo(dataPart).subscribe(
+    //   data => {
+    //     console.log(data);
+    //   },
+    //   error => console.log(error)
+    // );
     //TODO: Hacer retardo y validacion para ir a la pagina editar
     //this.router.navigate(['/grafo-analizar', grafoID]); */
   }
