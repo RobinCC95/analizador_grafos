@@ -38,7 +38,7 @@ export class GrafoService {
     return this.http.put(`${this.BASE_URL}update-grafo`, grafo);
   }
 
-  analizarGrafo(id: string): Observable<any> {
-    return this.http.get(`${this.BASE_URL}analizar-grafo/${id}`);
+  analizarGrafo(dataAnali : DataAnalisis): Observable<any> {
+    return this.http.post(`${this.BASE_URL}analizar-grafo`, dataAnali);
   }
 }

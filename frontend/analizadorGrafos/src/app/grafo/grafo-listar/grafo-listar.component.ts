@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataAnalisis } from 'src/app/modelos/dataAnalisis';
 import { GrafoModel } from 'src/app/modelos/grafoModel';
 import { GrafoService } from '../grafo.service';
 //para llamar js en ts de materialize
@@ -53,17 +54,22 @@ export class GrafoListarComponent implements OnInit {
     );
 
   }
-
   analizarGrafo(grafoID: string) {
-    console.log(grafoID);
-    this.grafoService.analizarGrafo(grafoID).subscribe(
+    let tipPart = document.getElementById('tipo-particion') as HTMLInputElement;
+    let tipParticion = tipPart.value;
+    let dataPart: DataAnalisis = {
+      id: grafoID,
+      particion: tipParticion
+    }
+    console.log(dataPart);
+    this.grafoService.analizarGrafo(dataPart).subscribe(
       data => {
         console.log(data);
       },
       error => console.log(error)
     );
     //TODO: Hacer retardo y validacion para ir a la pagina editar
-    this.router.navigate(['/grafo-analizar', grafoID]);
+    //this.router.navigate(['/grafo-analizar', grafoID]); */
   }
 
 }
