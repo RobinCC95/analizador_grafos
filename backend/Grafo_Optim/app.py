@@ -8,7 +8,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
 
-from analisis.analisis_algoritmo import Analisis_Algoritmo
+#from .analisis.analisis_algoritmo import Analisis_Algoritmo
 
 #estrutura de dados
 grafo_struct = {
