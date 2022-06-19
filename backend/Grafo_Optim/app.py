@@ -9,14 +9,12 @@ from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
 
 from analisis.analisis_algoritmo import *
+from modelo.grafo import Grafo
 
 #estrutura de dados
 grafo_struct = {
     "_id" : ObjectId("62695d1b4ed76546035e6555"),
-    "user" : {
-        "userId" : 123,
-        "name" : "Robin"
-    },
+    "name" : "Robin",
     "nodes" : [ 
         {
             "id" : "Alpha",
@@ -52,7 +50,6 @@ grafo_struct = {
 
 
 #manejo de errores al traer la informacion
-
 class JSONEncoder(json.JSONEncoder):
 	def default(self, o):
 		if(isinstance(o, ObjectId)):
@@ -60,6 +57,8 @@ class JSONEncoder(json.JSONEncoder):
 		if(isinstance(o, datetime.datetime)):
 			return str(o)	
 		return json.JSONEncoder.default(self, o)
+
+
 
 
 app = Flask(__name__)
@@ -93,14 +92,14 @@ def after_request(response):
 @app.route('/grafos/analizar-grafo', methods=['POST'])
 def analizar_grafo():
     if request.method == 'POST':
-        print("Analizando grafo...")
         #TODO: analizar grafo, guardar en MongoDB y retornar el nombre del grafo
-        id = request.json['id']
-        grafo = mongo.db.grafo_registro.find_one({"_id": id})
-        particion = request.json['particion']
+        particion = request.json['particion']  #String
+        grafo = request.json['grafo']  # diccionario
         analisis = Analisis_Algoritmo(grafo, particion)
+        #print(grafo)
         grafo_particion = analisis.get_grafo_particion()
-        id = mongo.db.grafo_particion.insert_one(grafo_particion)
+        print(grafo_particion)        
+        id = mongo.db.grafo_registro.insert_one(grafo_particion)
         return jsonify({'transaccion': True, "data":str(id)})
 
 @app.route('/grafos/add-grafo', methods=['POST'])
