@@ -99,7 +99,7 @@ def analizar_grafo():
         #print(grafo)
         grafo_particion = analisis.get_grafo_particion()
         print(grafo_particion)        
-        id = mongo.db.grafo_registro.insert_one(grafo_particion)
+        id = mongo.db.grafo_particion.insert_one(grafo_particion)
         return jsonify({'transaccion': True, "data":str(id)})
 
 @app.route('/grafos/add-grafo', methods=['POST'])
@@ -141,6 +141,13 @@ def delete_grafo(id):
 		status = mongo.db.grafo_registro.delete_one({"_id": id})
 		return jsonify({'transaccion': True, 'data':str(status)})
 
+@app.route('/grafos/delete-grafo-analizado/<id>', methods=['DELETE'])
+def delete_grafo_a(id):
+	if request.method == 'DELETE':
+		#receiving data
+		status = mongo.db.grafo_particion.delete_one({"_id": id})
+		return jsonify({'transaccion': True, 'data':str(status)})
+
 @app.route('/users/delete-user/<id>', methods=['DELETE'])
 def delete_user(id):
 	if request.method == 'DELETE':
@@ -156,6 +163,15 @@ def not_found(error):
 def listar_grafo():
     if request.method == 'GET':
         data = mongo.db.grafo_registro.find({})
+        listar_documentos = list(data)
+        if data == None:
+            return jsonify({'transaccion': False, "data":[]}),404
+        return jsonify({'transaccion': True, "data":listar_documentos})
+
+@app.route('/grafos/listar-grafo-analizado', methods=['GET'])
+def listar_grafo_a():
+    if request.method == 'GET':
+        data = mongo.db.grafo_particion.find({})
         listar_documentos = list(data)
         if data == None:
             return jsonify({'transaccion': False, "data":[]}),404

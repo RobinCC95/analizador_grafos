@@ -30,9 +30,8 @@ class ParticionModular:
         """Algoritmo modular para particionar un grafo.
         """
         #TODO: quitar valor del grafo tiene que ir evaluar el modular
-        grafoModular = self.grafo
-        grafoModular['_id']= "123456789"
-        grafoModular['name'] = "analisis grafo modular"
+        grafoModular = self.grafo 
+        grafoModular['name'] = "analisis grafo modular" + grafoModular['_id']
 
         #TODO: implementar algoritmo modular
 

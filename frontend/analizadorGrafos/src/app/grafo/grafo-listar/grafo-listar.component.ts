@@ -85,7 +85,7 @@ export class GrafoListarComponent implements OnInit {
       error => console.log(error)
     );
     //TODO: Hacer retardo y validacion para ir a la pagina editar
-    //this.router.navigate(['/grafo-analizar', grafoID]); */
+    this.router.navigate(['/grafo-analizar']);
   }
 
 }

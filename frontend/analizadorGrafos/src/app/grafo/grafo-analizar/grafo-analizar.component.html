@@ -36,8 +36,65 @@
   <div>
 
   </div>
-
-
 </div>
+
+<ng-container *ngIf="grafoArray">
+  <div>
+    <table class="responsive-table highlight">
+      <thead>
+        <tr>
+          <div class="row">
+            <div class="col s2">
+              <th>Nombre</th>
+            </div>
+            <div class="col s2">
+              <th>N. Nodos</th>
+            </div>
+            <div class="col s2">
+              <th>N. Aristas </th>
+            </div>
+            <div class="col s2">
+              <th>Opcion</th>
+            </div>
+            <div class="col s2">
+              <th></th>
+            </div>
+          </div>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let grafo of grafoArray">
+          <div class="row">
+            <div class="col s2">
+              <td> {{grafo.name}}</td>
+            </div>
+            <div class="col s2">
+              <td>{{grafo.nodes.length}}</td>
+            </div>
+            <div class="col s2">
+              <td>{{grafo.edges.length}}</td>
+            </div>
+
+            <div class="col s2">
+              <td>
+                <a class="waves-effect waves-light btn-small blue" (click)="drawGrafo(grafo._id)"><i
+                    class="material-icons right">image_aspect_ratio</i>Draw</a>
+
+              </td>
+            </div>
+            <div class="col s2">
+              <td>
+                <a class="waves-effect waves-light btn-small red" (click)="deleteGrafo(grafo._id)"><i
+                    class="material-icons right">delete_forever</i>Delete</a>
+              </td>
+            </div>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
 
 

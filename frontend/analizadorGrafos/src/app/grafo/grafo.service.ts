@@ -17,6 +17,10 @@ export class GrafoService {
   getListGrafos(): Observable<any> {
     return this.http.get(`${this.BASE_URL}listar-grafo`);
   }
+
+  getListarGrafoAnalizado(): Observable<any> {
+    return this.http.get(`${this.BASE_URL}listar-grafo-analizado`);
+  }
   /**
    * almacenar un grafo en la base de datos
    * @param grafo objeto grafo que se va a guardar en la base de datos
@@ -28,6 +32,10 @@ export class GrafoService {
 
   deleteGrafo(id: string): Observable<any> {
     return this.http.delete(`${this.BASE_URL}delete-grafo/${id}`);
+  }
+
+  deleteGrafoAnalizado(id: string): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}delete-grafo-analizado/${id}`);
   }
 
   getGrafo(id: string): Observable<any> {
