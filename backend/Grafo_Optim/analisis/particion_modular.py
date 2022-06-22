@@ -19,10 +19,12 @@ class ParticionModular:
         
     def mat_adjacencies(self):
         N = len(self.grafo["nodes"])
+        print(N)
         mat = np.zeros((N,N),dtype=np.int64)
         for edge in self.grafo["edges"]:
+            print(edge)
             mat[int(edge["from"])][int(edge["to"])] = 1
-        
+          
         return mat
 
     def get_grafo_particion(self):
@@ -55,7 +57,7 @@ class ParticionModular:
     
     def organizar_grafo(self, grafo, particion):
         grafo_particion = grafo.copy()
-        grafo_particion.pop("_id")
+        #grafo_particion.pop("_id")
         for i in particion:
             for item in grafo_particion["nodes"]:
                 if str(i) == item["id"]:

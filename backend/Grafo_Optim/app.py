@@ -167,12 +167,18 @@ def create_user():
 
 @app.route('/grafos/get-grafo/<id>', methods=['GET'])
 def get_grafo(id):
-	if request.method == 'GET':
+    if request.method == 'GET':
 		#receiving data
-		grafo = mongo.db.grafo_registro.find_one({"_id": id})
-		if grafo == None:
-			return jsonify({'transaccion': False, "data": "No se encontro el Grafo"}),404
-		return jsonify({'transaccion': True, "data":grafo})
+        #codigo es de grafo normal
+        if(id.find('11111111')!=-1):
+            grafo = mongo.db.grafo_registro.find_one({"_id": id})
+        else:
+            #codigo es de grafo particionado
+            grafo = mongo.db.grafo_particion.find_one({"_id": id})
+		
+        if grafo == None:
+            return jsonify({'transaccion': False, "data": "No se encontro el Grafo"}),404
+        return jsonify({'transaccion': True, "data":grafo})
 
 @app.route('/users/get-user/<id>', methods=['GET'])
 def get_user(id):

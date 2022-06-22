@@ -1,3 +1,5 @@
+import datetime
+import uuid
 from .particion_modular import ParticionModular
 from .particion_aproximada import ParticionAproximada
 
@@ -12,9 +14,9 @@ class Analisis_Algoritmo:
         """
         self.grafo = grafo
         self.particion = particion
-        self.grafo_particion = None
-        
+        self.grafo_particion = None        
         self.particionar()
+
 
     def particionar(self):
         if self.particion == "aproximado":
@@ -31,4 +33,11 @@ class Analisis_Algoritmo:
             raise Exception("No se ha particionado el grafo")
         else:
             return self.grafo_particion
+    def adicionar_id(self, id):
+        self.grafo_particion["_id"] = self.generar_id()
+
+    def generar_id(self):
+        uid = uuid.uuid1()
+        return uid
+        
 

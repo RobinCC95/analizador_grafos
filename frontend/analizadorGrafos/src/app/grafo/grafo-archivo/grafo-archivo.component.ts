@@ -137,7 +137,7 @@ export class GrafoArchivoComponent implements OnInit {
       let name = this.formGrafo.get('name')!.value;
       let adjacencies = [{}];
       this.grafoTemp = {
-        _id: this.generarIdUnico(),
+        _id: this.generarIdGrafo(),
         name: name,
         nodes: this.nodosData,
         edges: this.edgesData,
@@ -177,6 +177,9 @@ export class GrafoArchivoComponent implements OnInit {
       let dataS: string = data!.toString();
 
       this.dataJson = JSON.parse(dataS);
+      //modificar _id del grafo por generaridunico
+      this.dataJson._id = this.generarIdGrafo();
+      console.log(this.dataJson);
       //console.log(this.dataJson);
     }
   }
@@ -198,9 +201,10 @@ export class GrafoArchivoComponent implements OnInit {
   /**
    * generar id unico para el grafo
    */
-  generarIdUnico() {
+  generarIdGrafo() {
     let ahora = new Date().getTime();
-    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    let uuid = '';
+    uuid = '11111111-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       let r = (ahora + Math.random() * 16) % 16 | 0;
       ahora = Math.floor(ahora / 16);
       return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
@@ -208,7 +212,6 @@ export class GrafoArchivoComponent implements OnInit {
     );
     return uuid;
   }
-
 
 
 }
