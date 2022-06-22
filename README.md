@@ -24,11 +24,8 @@ Ubicarse en la carpeta raiz, ingrese en las subcarpetas en la siguiente direccio
 
 - Active el ambiente virtual con la siguiente linea. Debe estar en la subcarpeta mencionada al inicio de la instalacion:
 	- venv/Scripts/activate
-- Instale las siguientes librerias en el ambiente virtual: 
-	- pip install flask
-	- pip install Flask-PyMongo
-	- pip install pymongo[srv]
-	- pip install flask-cors
+- Instale las librerias en el ambiente virtual: 
+	- pip install -r requirements.txt
 
 - Inicie su servidor con el siguiente comando:
 	- python src/app.py

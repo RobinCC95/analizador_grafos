@@ -18,10 +18,10 @@ class ParticionModular:
         self.algoritmo_modular()
         
     def mat_adjacencies(self):
-        N = self.grafo["nodes"]
-        mat = np.zeros((N,N), dtype = np.int64)
+        N = len(self.grafo["nodes"])
+        mat = np.zeros((N,N),dtype=np.int64)
         for edge in self.grafo["edges"]:
-            mat[edge["from"] - 1][edge["to"] - 1] = 1
+            mat[int(edge["from"])][int(edge["to"])] = 1
         
         return mat
 
@@ -44,13 +44,27 @@ class ParticionModular:
         #TODO: quitar valor del grafo tiene que ir evaluar el modular
         grafoModular = self.grafo 
         grafoModular['name'] = "analisis grafo modular" + grafoModular['_id']
+        
 
         #TODO: implementar algoritmo modular
 
         mat = self.mat_adjacencies()
-        (subset_opt, partition_value, cluster_max) = self.QUEYRANNE(mat, lambda a : .1)
-        self.grafo_particion = grafoModular
-        
+        (subset_opt, partition_value, cluster_max) = self.QUEYRANNE(mat, lambda a,b : .1)
+        print(subset_opt, partition_value, cluster_max,"Funciona hasta cierto punto")
+        self.grafo_particion = self.organizar_grafo(grafoModular, subset_opt)
+    
+    def organizar_grafo(self, grafo, particion):
+        grafo_particion = grafo.copy()
+        grafo_particion.pop("_id")
+        for i in particion:
+            for item in grafo_particion["nodes"]:
+                if str(i) == item["id"]:
+                    item["color"] = "red"
+                    break
+            for item in grafo_particion["edges"]:
+                if str(i) == item["from"] or str(i) == item["to"]:
+                    item["color"] = "gray"
+        return grafo_particion
 
     # -*- Some useful preliminary functions -*-
     def trinv(self, matrix):
@@ -206,7 +220,7 @@ class ParticionModular:
         """type: (matrix, function) -> (list, float, list)"""
 
         dim, _ = SS.shape
-        V = range(dim)  # is the space of points which is updated at each step we find a pendent pair
+        V = [i for i in range(dim)]  # is the space of points which is updated at each step we find a pendent pair
         C = []  # set of candidates updated at each step
         while len(V) >= 3:
             W = copy.deepcopy(V)

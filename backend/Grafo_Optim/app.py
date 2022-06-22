@@ -9,7 +9,6 @@ from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
 
 from analisis.analisis_algoritmo import *
-from modelo.grafo import Grafo
 
 #estrutura de dados
 grafo_struct = {
@@ -93,13 +92,63 @@ def after_request(response):
 def analizar_grafo():
     if request.method == 'POST':
         #TODO: analizar grafo, guardar en MongoDB y retornar el nombre del grafo
-        particion = request.json['particion']  #String
-        grafo = request.json['grafo']  # diccionario
+        particion = request.json['particion']
+        #String
+        print(particion)
+        grafo_id = request.json['grafo']  # diccionario
+        # grafo = mongo.db.grafo_registro.find_one({"_id": grafo_id})
+        # if grafo == None:
+        grafo = {"_id" : "affce342-0477-4a86-abd9-eedeb6b34b3a",
+    "name" : "grafo prueba",
+    "nodes" : [ 
+        {
+            "id" : "1",
+            "text" : "1",
+            "color" : "yellow"
+        }, 
+        {
+            "id" : "2",
+            "text" : "2",
+            "color" : "blue"
+        }, 
+        {
+            "id" : "3",
+            "text" : "3",
+            "color" : "yellow"
+        }
+    ],
+    "edges" : [ 
+        {
+            "from" : "1",
+            "to" : "2",
+            "key" : "1"
+        }, 
+        {
+            "from" : "2",
+            "to" : "3",
+            "key" : "2"
+        }, 
+        {
+            "from" : "3",
+            "to" : "1",
+            "key" : "3"
+        }, 
+        {
+            "from" : "2",
+            "to" : "2",
+            "key" : "4"
+        }
+    ],
+    "adjacencies" : [ 
+        {}
+    ]
+    }
         analisis = Analisis_Algoritmo(grafo, particion)
-        #print(grafo)
         grafo_particion = analisis.get_grafo_particion()
-        print(grafo_particion)        
+        print(grafo_particion, "----------------------")
         id = mongo.db.grafo_particion.insert_one(grafo_particion)
+        
+        print(id)
         return jsonify({'transaccion': True, "data":str(id)})
 
 @app.route('/grafos/add-grafo', methods=['POST'])
