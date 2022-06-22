@@ -2,6 +2,7 @@ from __future__ import division
 import numpy as np
 import numpy.linalg as la
 import copy
+import time
 
 class ParticionModular:
     def __init__(self, grafo):
@@ -51,21 +52,40 @@ class ParticionModular:
         #TODO: implementar algoritmo modular
 
         mat = self.mat_adjacencies()
-        (subset_opt, partition_value, cluster_max) = self.QUEYRANNE(mat, lambda a,b : .1)
-        print(subset_opt, partition_value, cluster_max,"Funciona hasta cierto punto")
-        self.grafo_particion = self.organizar_grafo(grafoModular, subset_opt)
+        
+        begin = time.time()
+        (subset_opt, _, _) = self.QUEYRANNE(mat, self.cut_funct)
+        end = time.time()
+        diff = end - begin
+        
+        self.grafo_particion = self.organizar_grafo(grafoModular, subset_opt, diff)
+        
+    def cut_funct(self, SS, A):
+        A = list(set(A))
+        n = len(SS[0])
+        diff_A = self.diff([i for i in range(n)], A)
+        return self.sum_diff(SS, A, diff_A)
+        
+    def sum_diff(self,SS,A, A_prim):
+        count = 0
+        for i in A:
+            for j in A_prim:
+                count += SS[i][j]
+        return count
     
-    def organizar_grafo(self, grafo, particion):
+    def organizar_grafo(self, grafo, particion, tiempo):
         grafo_particion = grafo.copy()
-        #grafo_particion.pop("_id")
+        grafo_particion.pop("_id")
+        grafo_particion["modular_time"] = tiempo
         for i in particion:
             for item in grafo_particion["nodes"]:
                 if str(i) == item["id"]:
                     item["color"] = "red"
                     break
             for item in grafo_particion["edges"]:
+                item["category"] = "influence"
                 if str(i) == item["from"] or str(i) == item["to"]:
-                    item["color"] = "gray"
+                    item["category"] = "flow"
         return grafo_particion
 
     # -*- Some useful preliminary functions -*-
@@ -140,7 +160,7 @@ class ParticionModular:
         for elt in Q_:
             W_cp = copy.copy(WW)
             W_cp.append(elt)
-            dist_elt = F(SS, W_cp) - F(SS, elt)
+            dist_elt = F(SS, W_cp) - F(SS, [elt])
             if dist_elt > dist_max:
                 dist_max = dist_elt
                 elt_far = elt
