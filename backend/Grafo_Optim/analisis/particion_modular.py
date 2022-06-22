@@ -65,7 +65,7 @@ class ParticionModular:
                     break
             for item in grafo_particion["edges"]:
                 if str(i) == item["from"] or str(i) == item["to"]:
-                    item["color"] = "gray"
+                    item["progress"] = "true"
         return grafo_particion
 
     # -*- Some useful preliminary functions -*-
