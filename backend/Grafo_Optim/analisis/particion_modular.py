@@ -61,7 +61,7 @@ class ParticionModular:
         self.grafo_particion = self.organizar_grafo(grafoModular, subset_opt, diff)
         
     def cut_funct(self, SS, A):
-        A = list(set(A))
+        #A = list(set(A))
         n = len(SS[0])
         diff_A = self.diff([i for i in range(n)], A)
         return self.sum_diff(SS, A, diff_A)
@@ -153,7 +153,7 @@ class ParticionModular:
         u = QQ[0]  # a list not an index
         W_cp = copy.copy(WW)
         W_cp.append(u)
-        dist_max = F(SS, W_cp) - F(SS, u)
+        dist_max = F(SS, W_cp) - F(SS, [u])
         elt_far = u
         Q_ = copy.copy(QQ)
         Q_.remove(u)

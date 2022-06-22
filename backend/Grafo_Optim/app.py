@@ -94,8 +94,8 @@ def analizar_grafo():
         #TODO: analizar grafo, guardar en MongoDB y retornar el nombre del grafo
         particion = request.json['particion']
         #String
-        grafo_id = request.json['grafo']  # diccionario
-        grafo = mongo.db.grafo_registro.find_one({"_id": grafo_id})
+        grafo = request.json['grafo']  # diccionario
+        #grafo = mongo.db.grafo_registro.find_one({"_id": grafo_id})
         if grafo != None:
             analisis = Analisis_Algoritmo(grafo, particion)
             grafo_particion = analisis.get_grafo_particion()
