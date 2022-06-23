@@ -95,7 +95,6 @@ def analizar_grafo():
         particion = request.json['particion']
         #String
         grafo = request.json['grafo']  # diccionario
-        #grafo = mongo.db.grafo_registro.find_one({"_id": grafo_id})
         if grafo != None:
             analisis = Analisis_Algoritmo(grafo, particion)
             grafo_particion = analisis.get_grafo_particion()

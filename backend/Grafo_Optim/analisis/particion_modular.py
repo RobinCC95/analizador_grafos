@@ -60,8 +60,20 @@ class ParticionModular:
         
         self.grafo_particion = self.organizar_grafo(grafoModular, subset_opt, diff)
         
+    def confirmar_lista(self, V):
+        aux_list = []
+        for item in V:
+            if type(item) != list:
+                aux_list.append(item)  
+            else:
+                for item_w in item:
+                    aux_list.append(item_w)
+                
+        return aux_list
+        
     def cut_funct(self, SS, A):
-        #A = list(set(A))
+        aux = self.confirmar_lista(A) if type(A) == list else [A]
+        A = list(set(aux))
         n = len(SS[0])
         diff_A = self.diff([i for i in range(n)], A)
         return self.sum_diff(SS, A, diff_A)
@@ -85,7 +97,7 @@ class ParticionModular:
             for item in grafo_particion["edges"]:
                 item["category"] = "influence"
                 if str(i) == item["from"] or str(i) == item["to"]:
-                    item["progress"] = "true"
+                    item["category"] = "flow"
         return grafo_particion
 
     # -*- Some useful preliminary functions -*-
@@ -109,8 +121,9 @@ class ParticionModular:
         return S
 
     def diff(self, first, second):
-            second = set(second)
-            return [item for item in first if item not in second]
+        aux = self.confirmar_lista(second) if type(second) == list else [second]
+        second = set(aux)
+        return [item for item in first if item not in second]
 
     def ismember(self, a, B):
         response = False
