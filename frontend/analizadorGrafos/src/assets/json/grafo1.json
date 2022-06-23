@@ -1,6 +1,7 @@
 {
-  "_id":"6516563350",
-  "name" : "grafo carga json",
+  "_id":"",
+  "name" : "Grafo Json 1",
+  "tiempo": "",
   "nodes" : [
       {
           "id" : "0",
@@ -27,7 +28,8 @@
       {
           "key" : 1,
           "from" : "0",
-          "to" : "1"
+          "to" : "1",
+          "progress":"true"
       },
       {
           "key" : 2,

@@ -139,6 +139,7 @@ export class GrafoArchivoComponent implements OnInit {
       this.grafoTemp = {
         _id: this.generarIdGrafo(),
         name: name,
+        tiempo: '0',
         nodes: this.nodosData,
         edges: this.edgesData,
         adjacencies: adjacencies
