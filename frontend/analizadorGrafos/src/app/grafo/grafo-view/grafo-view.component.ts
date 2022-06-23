@@ -68,7 +68,7 @@ export class GrafoViewComponent implements OnInit {
       { id: 'Delta', text: "Delta", color: 'pink', loc: "100 100" }
     ],
     diagramLinkData: [
-      { key: -1, from: 'Alpha', to: 'Beta', fromPort: 'r', toPort: '1' },
+      { key: -1, from: 'Alpha',to: 'Beta', 'progress': 'true' , fromPort: 'r', toPort: '1' },
       { key: -2, from: 'Alpha', to: 'Gamma', fromPort: 'b', toPort: 't' },
       { key: -3, from: 'Beta', to: 'Beta' },
       { key: -4, from: 'Gamma', to: 'Delta', fromPort: 'r', toPort: 'l' },
@@ -104,6 +104,43 @@ export class GrafoViewComponent implements OnInit {
         }
       )
     });
+
+    // replace the default Link template in the linkTemplateMap
+    dia.linkTemplate =
+    $(go.Link,  // the whole link panel
+      {
+        curve: go.Link.Bezier,
+        adjusting: go.Link.Stretch,
+        reshapable: true, relinkableFrom: true, relinkableTo: true,
+        toShortLength: 3
+      },
+      new go.Binding("points").makeTwoWay(),
+      new go.Binding("curviness"),
+      $(go.Shape,  // the link shape
+        { strokeWidth: 1.5 },
+        new go.Binding('stroke', 'progress', progress => progress ? "#52ce60" /* green */ : 'black'),
+        new go.Binding('strokeWidth', 'progress', progress => progress ? 2.5 : 1.5)),
+      $(go.Shape,  // the arrowhead
+        { toArrow: "standard", stroke: null },
+        new go.Binding('fill', 'progress', progress => progress ? "#52ce60" /* green */ : 'black')),
+      // $(go.Panel, "Auto",
+      //   $(go.Shape,  // the label background, which becomes transparent around the edges
+      //     {
+      //       fill: $(go.Brush, "Radial",
+      //         { 0: "rgb(245, 245, 245)", 0.7: "rgb(245, 245, 245)", 1: "rgba(245, 245, 245, 0)" }),
+      //       stroke: null
+      //     }),
+      //   $(go.TextBlock, "transition",  // the label text
+      //     {
+      //       textAlign: "center",
+      //       font: "9pt helvetica, arial, sans-serif",
+      //       margin: 4,
+      //       editable: true  // enable in-place editing
+      //     },
+      //     // editing the text automatically updates the model data
+      //     new go.Binding("text").makeTwoWay())
+      // )
+    );
 
     dia.commandHandler.archetypeGroupData = { key: 'Group', isGroup: true };
 
