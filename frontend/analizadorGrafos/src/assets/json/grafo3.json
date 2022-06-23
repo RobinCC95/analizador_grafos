@@ -1,0 +1,70 @@
+{
+  "_id": "",
+  "name": "Grafo Json tres",
+  "tiempo": "",
+  "nodes": [
+    {
+      "id": "0",
+      "text": "0",
+      "color": "blue"
+    },
+    {
+      "id": "1",
+      "text": "1",
+      "color": "blue"
+    },
+    {
+      "id": "2",
+      "text": "2",
+      "color": "blue"
+    },
+    {
+      "id": "3",
+      "text": "3",
+      "color": "blue"
+    },
+    {
+      "id": "4",
+      "text": "4",
+      "color": "blue"
+    },
+    {
+      "id": "5",
+      "text": "5",
+      "color": "blue"
+    }
+  ],
+  "edges": [
+    {
+      "key": 1,
+      "from": "0",
+      "to": "3"
+    },
+    {
+      "key": 2,
+      "from": "1",
+      "to": "2"
+    },
+    {
+      "key": 3,
+      "from": "3",
+      "to": "0"
+    },
+    {
+      "key": 4,
+      "from": "2",
+      "to": "4"
+    },
+    {
+      "key": 5,
+      "from": "4",
+      "to": "5"
+    },
+    {
+      "key": 6,
+      "from": "0",
+      "to": "5"
+    }
+  ],
+  "adjacencies": []
+}

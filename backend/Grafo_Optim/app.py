@@ -121,12 +121,15 @@ def get_grafo(id):
     if request.method == 'GET':
 		#receiving data
         #codigo es de grafo normal
+        print(id)
         if(id.find('11111111')!=-1):
+            print('es grafo normal')
             grafo = mongo.db.grafo_registro.find_one({"_id": id})
         else:
+            print('es grafo particionado')
             #codigo es de grafo particionado
             grafo = mongo.db.grafo_particion.find_one({"_id": id})
-		
+        print(grafo)
         if grafo == None:
             return jsonify({'transaccion': False, "data": "No se encontro el Grafo"}),404
         return jsonify({'transaccion': True, "data":grafo})

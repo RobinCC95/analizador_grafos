@@ -27,17 +27,16 @@ class Analisis_Algoritmo:
             self.grafo_particion = grafo_part_modul.get_grafo_particion()
         else:
             raise Exception("Particion no reconocida")
+        self.generar_id()
 
     def get_grafo_particion(self):
         if self.grafo_particion is None:
             raise Exception("No se ha particionado el grafo")
         else:
             return self.grafo_particion
-    def adicionar_id(self, id):
-        self.grafo_particion["_id"] = self.generar_id()
 
     def generar_id(self):
-        uid = uuid.uuid1()
-        return uid
+        uid = uuid.uuid4()
+        self.grafo_particion["_id"] =  str(uid)
         
 

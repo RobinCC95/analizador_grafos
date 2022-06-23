@@ -46,7 +46,7 @@ class ParticionModular:
         """
         #TODO: quitar valor del grafo tiene que ir evaluar el modular
         grafoModular = self.grafo 
-        grafoModular['name'] = "analisis grafo modular" + grafoModular['_id']
+        grafoModular['name'] = "modular - " + grafoModular['name']
         
 
         #TODO: implementar algoritmo modular
@@ -87,7 +87,7 @@ class ParticionModular:
     
     def organizar_grafo(self, grafo, particion, tiempo):
         grafo_particion = grafo.copy()
-        grafo_particion.pop("_id")
+        #grafo_particion.pop("_id")
         grafo_particion["modular_time"] = tiempo
         for i in particion:
             for item in grafo_particion["nodes"]:
@@ -95,9 +95,8 @@ class ParticionModular:
                     item["color"] = "red"
                     break
             for item in grafo_particion["edges"]:
-                item["category"] = "influence"
                 if str(i) == item["from"] or str(i) == item["to"]:
-                    item["category"] = "flow"
+                    item["progress"] = "true"
         return grafo_particion
 
     # -*- Some useful preliminary functions -*-
