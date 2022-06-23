@@ -88,7 +88,7 @@ class ParticionModular:
     def organizar_grafo(self, grafo, particion, tiempo):
         grafo_particion = grafo.copy()
         #grafo_particion.pop("_id")
-        grafo_particion["modular_time"] = tiempo
+        grafo_particion["tiempo"] = tiempo
         for i in particion:
             for item in grafo_particion["nodes"]:
                 if str(i) == item["id"]:
