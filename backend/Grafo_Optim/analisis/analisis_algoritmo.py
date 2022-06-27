@@ -1,40 +1,29 @@
-import datetime
-import uuid
-from .particion_modular import ParticionModular
-from .particion_aproximada import ParticionAproximada
-from .particion_dinamica import ParticionDinamica
-from .particion_voraz import ParticionVoraz
+import time
+import functions
+
+from backend.Grafo_Optim.analisis import graph_mapper
+from backend.Grafo_Optim.analisis.algorithms import Queyranne, Voraz
+
+
 class Analisis_Algoritmo:
     def __init__(self, grafo, particion):
-        """Se encarga de hacer un analisis de particion de un grafo
-        de acuerdo a una particion dada.	
-
-        Args:
-            grafo (_type_): grafo a analizar
-            particion (_type_): tipo de particion a utilizar
-        """
         self.grafo = grafo
         self.particion = particion
-        self.grafo_particion = None        
+        self.grafo_particion = None
         self.particionar()
 
-
     def particionar(self):
+        mat = graph_mapper.graph_to_adjacencies_mat(self.grafo)
         if self.particion == "aproximado":
-            grafo_part_aprox = ParticionAproximada(self.grafo)
-            self.grafo_particion = grafo_part_aprox.get_grafo_particion()
+            pass
         elif self.particion == "modular":
-            grafo_part_modul = ParticionModular(self.grafo)
-            self.grafo_particion = grafo_part_modul.get_grafo_particion()
+            self.set_grafo_particion(mat, Queyranne.algorithm, functions.cut_funct)
         elif self.particion == "dinamico":
-            grafo_part_dinam = ParticionDinamica(self.grafo)
-            self.grafo_particion = grafo_part_dinam.get_grafo_particion()
+            pass
         elif self.particion == "voraz":
-            grafo_part_voraz = ParticionVoraz(self.grafo)
-            self.grafo_particion = grafo_part_voraz.get_grafo_particion()
+            self.set_grafo_particion(mat, Voraz.algorithm, functions.cut_funct)
         else:
             raise Exception("Particion no reconocida")
-        self.generar_id()
 
     def get_grafo_particion(self):
         if self.grafo_particion is None:
@@ -42,8 +31,9 @@ class Analisis_Algoritmo:
         else:
             return self.grafo_particion
 
-    def generar_id(self):
-        uid = uuid.uuid4()
-        self.grafo_particion["_id"] =  str(uid)
-        
-
+    def set_grafo_particion(self, mat, algorithm, submodular_func):
+        begin_time = time.time()
+        subset_opt = algorithm(mat, submodular_func)
+        end_time = time.time()
+        self.grafo_particion = graph_mapper.format_graph(
+            self.grafo, subset_opt, end_time - begin_time)

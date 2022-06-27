@@ -1,6 +1,4 @@
 
-#from pymongo import MongoClient
-
 from flask import Flask, jsonify, request
 import json 
 import datetime
@@ -9,44 +7,6 @@ from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
 
 from analisis.analisis_algoritmo import *
-
-#estrutura de dados
-grafo_struct = {
-    "_id" : ObjectId("62695d1b4ed76546035e6555"),
-    "name" : "Robin",
-    "nodes" : [ 
-        {
-            "id" : "Alpha",
-            "text" : "Alpha",
-            "color" : "lightblue"
-        }, 
-        {
-            "id" : "Beta",
-            "text" : "Beta",
-            "color" : "orange"
-        }, 
-        {
-            "id" : "Omega",
-            "text" : "Omega",
-            "color" : "red"
-        }
-    ],
-    "edges" : [ 
-        {
-            "key" : -1,
-            "from" : "Alpha",
-            "to" : "Beta"
-        }, 
-        {
-            "key" : 2,
-            "from" : "Alpha",
-            "to" : "Omega"
-        }
-    ],
-    "adjacencies" : []
-}
-
-
 
 #manejo de errores al traer la informacion
 class JSONEncoder(json.JSONEncoder):
@@ -57,14 +17,9 @@ class JSONEncoder(json.JSONEncoder):
 			return str(o)	
 		return json.JSONEncoder.default(self, o)
 
-
-
-
 app = Flask(__name__)
 #implementacion de CORS
 CORS(app)
-
-
 
 #conexion con MongoDB
 #username = "admin"
