@@ -1,4 +1,7 @@
-
+import numpy as np
+import numpy.linalg as la
+import copy
+import time
 
 class ParticionDinamica:
     def __init__(self, grafo):
@@ -19,3 +22,34 @@ class ParticionDinamica:
             return self.grafo_particion
     def algoritmo_dinamico(self):
         pass
+
+    
+    def iniciar_partir_tdm(self):
+        """_summary_:
+            funcion que se encarga de iniciar algorimo de particion y la
+            tabla de guardado de los resultados.
+            Tambien inicializa la lista que contiene la suma de adyacencias de cada nodo
+            del grafo.
+        """
+        matriz_adyacencias = self.mat_adjacencies()
+        self.tabla_guardado = np.zeros((len(matriz_adyacencias), len(matriz_adyacencias)), dtype=np.int64)
+    
+    def partir_tdm(self):
+        pass
+    
+    
+    def solucion_partir_tdm(self):
+        pass
+    
+
+    def mat_adjacencies(self):
+        N = len(self.grafo["nodes"])
+        print(N)
+        mat = np.zeros((N,N),dtype=np.int64)
+        for edge in self.grafo["edges"]:
+            print(edge)
+            mat[int(edge["from"])][int(edge["to"])] = 1
+
+        return mat
+
+    
