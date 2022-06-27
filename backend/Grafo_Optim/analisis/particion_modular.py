@@ -44,7 +44,6 @@ class ParticionModular:
     def algoritmo_modular(self):
         """Algoritmo modular para particionar un grafo.
         """
-        #TODO: quitar valor del grafo tiene que ir evaluar el modular
         grafoModular = self.grafo 
         grafoModular['name'] = "modular - " + grafoModular['name']
         

@@ -3,6 +3,7 @@ import uuid
 from .particion_modular import ParticionModular
 from .particion_aproximada import ParticionAproximada
 from .particion_dinamica import ParticionDinamica
+from .particion_voraz import ParticionVoraz
 class Analisis_Algoritmo:
     def __init__(self, grafo, particion):
         """Se encarga de hacer un analisis de particion de un grafo
@@ -28,6 +29,9 @@ class Analisis_Algoritmo:
         elif self.particion == "dinamico":
             grafo_part_dinam = ParticionDinamica(self.grafo)
             self.grafo_particion = grafo_part_dinam.get_grafo_particion()
+        elif self.particion == "voraz":
+            grafo_part_voraz = ParticionVoraz(self.grafo)
+            self.grafo_particion = grafo_part_voraz.get_grafo_particion()
         else:
             raise Exception("Particion no reconocida")
         self.generar_id()
