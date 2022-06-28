@@ -1,8 +1,8 @@
 import time
-import functions
 
-from backend.Grafo_Optim.analisis import graph_mapper
-from backend.Grafo_Optim.analisis.algorithms import Queyranne, Voraz
+from analisis import graph_mapper
+from analisis.algorithms import Queyranne, Voraz
+from analisis.submodular_functions import SubmodularFunctions
 
 
 class Analisis_Algoritmo:
@@ -17,11 +17,11 @@ class Analisis_Algoritmo:
         if self.particion == "aproximado":
             pass
         elif self.particion == "modular":
-            self.set_grafo_particion(mat, Queyranne.algorithm, functions.cut_funct)
+            self.set_grafo_particion(mat, Queyranne.algorithm, SubmodularFunctions.cut_funct)
         elif self.particion == "dinamico":
             pass
         elif self.particion == "voraz":
-            self.set_grafo_particion(mat, Voraz.algorithm, functions.cut_funct)
+            self.set_grafo_particion(mat, Voraz.algorithm, SubmodularFunctions.cut_funct)
         else:
             raise Exception("Particion no reconocida")
 
