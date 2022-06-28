@@ -2,7 +2,7 @@ import time
 import functions
 
 from backend.Grafo_Optim.analisis import graph_mapper
-from backend.Grafo_Optim.analisis.algorithms import Queyranne, Voraz
+from backend.Grafo_Optim.analisis.algorithms import Dinamico, Queyranne, Voraz
 
 
 class Analisis_Algoritmo:
@@ -19,7 +19,7 @@ class Analisis_Algoritmo:
         elif self.particion == "modular":
             self.set_grafo_particion(mat, Queyranne.algorithm, functions.cut_funct)
         elif self.particion == "dinamico":
-            pass
+            self.set_grafo_particion(mat, Dinamico.algorithm, functions.cut_funct)
         elif self.particion == "voraz":
             self.set_grafo_particion(mat, Voraz.algorithm, functions.cut_funct)
         else:

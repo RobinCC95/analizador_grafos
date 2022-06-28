@@ -169,3 +169,96 @@ def diff(first, second):
     aux = is_list(second) if type(second) == list else [second]
     second = set(aux)
     return [item for item in first if item not in second]
+
+class Dinamico(Algorithm):
+    def algorithm(mat, funct):
+        return Dinamico.iniciar_partir_tdm(mat,funct)
+
+    @staticmethod
+    def suma_lista(lista, j):
+        """_summary_:
+            funcion que se encarga de sumar todos los valores de la lista desde la posicion cero hasta la posicion j
+            args:
+                lista: lista de sumas de adyacencias de cada nodo
+                j: posicion de la columna en la tabla donde va la suma
+            returns:
+                suma: suma de todos los valores de la lista desde la posicion cero hasta la posicion j
+        """
+        suma = 0
+        for i in range(j):
+            suma += lista[i]
+        return suma
+    @staticmethod
+    def tabla_inicialiar(tabla):
+        for i in range(len(tabla)):
+            for j in range(len(tabla[0])):
+                if i == 0:
+                    tabla[i][j] = 1
+                elif j == len(tabla[0])-1:
+                    tabla[i][j] = 0
+                else:
+                    tabla[i][j] = -1
+        return tabla
+    @staticmethod
+    def iniciar_partir_tdm(matriz, funct):
+        """_summary_:
+            funcion que se encarga de iniciar algorimo de particion y la
+            tabla de guardado de los resultados.
+            Tambien inicializa la lista que contiene la suma de adyacencias de cada nodo
+            del grafo. 
+        """
+        matriz_adyacencias = matriz
+        lista_sumas = Dinamico.lista_sumas_adyacencias(matriz_adyacencias)
+        k = Dinamico.suma_lista(lista_sumas, len(lista_sumas))
+        if k % 2 == 0:
+            M = int(k/2)  # numero de filas por la suma total / dos (par)
+            N = len(lista_sumas)  # numero columnas de la tabla
+            tabla = np.zeros((M+1, N+1), dtype=np.int64)
+            tabla = Dinamico.tabla_inicialiar(tabla)
+            tabla = Dinamico.partir_tdm(tabla, lista_sumas, N, M)
+            solucion = Dinamico.solucion_partir_tdm(tabla)
+            if solucion != None:
+                return solucion
+            else: return None
+            
+        else:
+            # excepcion por no poder dividir entre 2
+            return None
+    @staticmethod
+    def partir_tdm(tabla, lista, N, M):
+        for j in range(N-1, -1, -1):
+            for s in range(1,M+1,1):
+                if(lista[j] > s):
+                    tabla[s][j] = tabla[s][j+1]
+                if(lista[j] <= s):
+                    tabla[s][j] = int(tabla[s][j+1] or tabla[s-lista[j]][j+1])
+
+        return tabla
+    @staticmethod
+    def solucion_partir_tdm(tabla):
+        lista = tabla[len(tabla)-1]
+        if lista[0] ==1:
+            return lista[0:len(lista)-1]
+        else: 
+            return None
+    @staticmethod
+    def mat_adjacencies(grafo):
+        N = len(grafo["nodes"])
+        mat = np.zeros((N, N), dtype=np.int64)
+        for edge in grafo["edges"]:
+            mat[int(edge["from"])][int(edge["to"])] = 1
+        return mat
+
+    @staticmethod
+    def lista_sumas_adyacencias(matriz_adyacencias):
+        """_summary_:
+            funcion que se encarga de calcular la suma de adyacencias de cada nodo
+            del grafo.
+        """
+        lista_sumas_adyacencias = []
+        for i in range(len(matriz_adyacencias)):
+            suma = 0
+            for j in range(len(matriz_adyacencias)):
+                suma += matriz_adyacencias[i][j]
+            lista_sumas_adyacencias.append(suma)
+        return lista_sumas_adyacencias
