@@ -5,7 +5,6 @@ import re
 
 class Algorithm():
     @abstractmethod
-    @staticmethod
     def algorithm(Mat, Funct):
         pass
     
